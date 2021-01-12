@@ -1,9 +1,6 @@
 package com.salkcoding.tunalandsBC
 
-import com.salkcoding.tunalandsBC.bungee.BanListReceiver
-import com.salkcoding.tunalandsBC.bungee.SpawnCooldownReceiver
-import com.salkcoding.tunalandsBC.bungee.VisitCooldownReceiver
-import com.salkcoding.tunalandsBC.bungee.VisitReceiver
+import com.salkcoding.tunalandsBC.bungee.*
 import com.salkcoding.tunalandsBC.commands.LandCommandHandler
 import com.salkcoding.tunalandsBC.commands.sub.*
 import com.salkcoding.tunalandsBC.gui.GuiManager
@@ -21,7 +18,7 @@ lateinit var bungeeApi: BungeeChannelApi
 
 class TunaLands : JavaPlugin() {
 
-    lateinit var serverName:String
+    lateinit var serverName: String
 
     override fun onEnable() {
         tunaLands = this
@@ -38,6 +35,8 @@ class TunaLands : JavaPlugin() {
         bungeeApi.registerForwardListener("tunalands-visit-connect", VisitCooldownReceiver())
         //Spawn
         bungeeApi.registerForwardListener("tunalands-spawn", SpawnCooldownReceiver())
+        //Reload
+        bungeeApi.registerForwardListener("tunalands-reload", ReloadReceiver())
 
         val handler = LandCommandHandler()
         handler.register("accept", Accept())
@@ -67,7 +66,6 @@ class TunaLands : JavaPlugin() {
         server.pluginManager.registerEvents(InventoryCloseListener(), this)
         server.pluginManager.registerEvents(InventoryDragListener(), this)
         server.pluginManager.registerEvents(PlayerConnectListener(), this)
-        server.messenger.registerOutgoingPluginChannel(this, channelName)
 
         logger.info("Plugin is Enabled")
     }

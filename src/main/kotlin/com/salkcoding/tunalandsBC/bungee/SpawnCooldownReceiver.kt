@@ -2,6 +2,7 @@ package com.salkcoding.tunalandsBC.bungee
 
 import com.google.common.io.ByteStreams
 import com.salkcoding.tunalandsBC.bungeeApi
+import com.salkcoding.tunalandsBC.tunaLands
 import com.salkcoding.tunalandsBC.util.TeleportCooltime
 import io.github.leonardosnt.bungeechannelapi.BungeeChannelApi
 import org.bukkit.Bukkit
