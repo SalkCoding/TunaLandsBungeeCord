@@ -5,7 +5,7 @@
  * Licensed under the MIT License. See LICENSE file in the project root for full license information.
  */
 
-package io.github.leonardosnt.bungeechannelapi;
+package com.salkcoding.tunalandsBC.bungee.channelapi;
 
 import com.google.common.collect.Iterables;
 import com.google.common.io.ByteArrayDataInput;
@@ -22,8 +22,6 @@ import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiFunction;
 
-import static com.salkcoding.tunalandsBC.TunaLandsKt.channelName;
-
 /**
  * Documentation copied from https://www.spigotmc.org/wiki/bukkit-bungee-plugin-messaging-channel/
  *
@@ -32,7 +30,7 @@ import static com.salkcoding.tunalandsBC.TunaLandsKt.channelName;
  */
 public class BungeeChannelApi {
 
-  private static WeakHashMap<Plugin, BungeeChannelApi> registeredInstances = new WeakHashMap<>();
+  private static final WeakHashMap<Plugin, BungeeChannelApi> registeredInstances = new WeakHashMap<>();
 
   private final PluginMessageListener messageListener;
   private final Plugin plugin;
@@ -71,8 +69,8 @@ public class BungeeChannelApi {
     this.messageListener = this::onPluginMessageReceived;
 
     Messenger messenger = Bukkit.getServer().getMessenger();
-    messenger.registerOutgoingPluginChannel(plugin, channelName);
-    messenger.registerIncomingPluginChannel(plugin, channelName, messageListener);
+    messenger.registerOutgoingPluginChannel(plugin, "BungeeCord");
+    messenger.registerIncomingPluginChannel(plugin, "BungeeCord", messageListener);
   }
 
   /**
@@ -120,7 +118,7 @@ public class BungeeChannelApi {
     ByteArrayDataOutput output = ByteStreams.newDataOutput();
     output.writeUTF("PlayerCount");
     output.writeUTF(serverName);
-    player.sendPluginMessage(this.plugin, channelName, output.toByteArray());
+    player.sendPluginMessage(this.plugin, "BungeeCord", output.toByteArray());
     return future;
   }
 
@@ -143,7 +141,7 @@ public class BungeeChannelApi {
     ByteArrayDataOutput output = ByteStreams.newDataOutput();
     output.writeUTF("PlayerList");
     output.writeUTF(serverName);
-    player.sendPluginMessage(this.plugin, channelName, output.toByteArray());
+    player.sendPluginMessage(this.plugin, "BungeeCord", output.toByteArray());
     return future;
   }
 
@@ -164,7 +162,7 @@ public class BungeeChannelApi {
 
     ByteArrayDataOutput output = ByteStreams.newDataOutput();
     output.writeUTF("GetServers");
-    player.sendPluginMessage(this.plugin, channelName, output.toByteArray());
+    player.sendPluginMessage(this.plugin, "BungeeCord", output.toByteArray());
     return future;
   }
 
@@ -178,7 +176,7 @@ public class BungeeChannelApi {
     ByteArrayDataOutput output = ByteStreams.newDataOutput();
     output.writeUTF("Connect");
     output.writeUTF(serverName);
-    player.sendPluginMessage(this.plugin, channelName, output.toByteArray());
+    player.sendPluginMessage(this.plugin, "BungeeCord", output.toByteArray());
   }
 
   /**
@@ -196,7 +194,7 @@ public class BungeeChannelApi {
     output.writeUTF(playerName);
     output.writeUTF(server);
 
-    player.sendPluginMessage(this.plugin, channelName, output.toByteArray());
+    player.sendPluginMessage(this.plugin, "BungeeCord", output.toByteArray());
   }
 
   /**
@@ -214,7 +212,7 @@ public class BungeeChannelApi {
 
     ByteArrayDataOutput output = ByteStreams.newDataOutput();
     output.writeUTF("IP");
-    player.sendPluginMessage(this.plugin, channelName, output.toByteArray());
+    player.sendPluginMessage(this.plugin, "BungeeCord", output.toByteArray());
     return future;
   }
 
@@ -232,7 +230,7 @@ public class BungeeChannelApi {
     output.writeUTF("Message");
     output.writeUTF(playerName);
     output.writeUTF(message);
-    player.sendPluginMessage(this.plugin, channelName, output.toByteArray());
+    player.sendPluginMessage(this.plugin, "BungeeCord", output.toByteArray());
   }
 
   /**
@@ -252,7 +250,7 @@ public class BungeeChannelApi {
 
     ByteArrayDataOutput output = ByteStreams.newDataOutput();
     output.writeUTF("GetServer");
-    player.sendPluginMessage(this.plugin, channelName, output.toByteArray());
+    player.sendPluginMessage(this.plugin, "BungeeCord", output.toByteArray());
     return future;
   }
 
@@ -271,7 +269,7 @@ public class BungeeChannelApi {
 
     ByteArrayDataOutput output = ByteStreams.newDataOutput();
     output.writeUTF("UUID");
-    player.sendPluginMessage(this.plugin, channelName, output.toByteArray());
+    player.sendPluginMessage(this.plugin, "BungeeCord", output.toByteArray());
     return future;
   }
 
@@ -293,7 +291,7 @@ public class BungeeChannelApi {
     ByteArrayDataOutput output = ByteStreams.newDataOutput();
     output.writeUTF("UUIDOther");
     output.writeUTF(playerName);
-    player.sendPluginMessage(this.plugin, channelName, output.toByteArray());
+    player.sendPluginMessage(this.plugin, "BungeeCord", output.toByteArray());
     return future;
   }
 
@@ -315,7 +313,7 @@ public class BungeeChannelApi {
     ByteArrayDataOutput output = ByteStreams.newDataOutput();
     output.writeUTF("ServerIP");
     output.writeUTF(serverName);
-    player.sendPluginMessage(this.plugin, channelName, output.toByteArray());
+    player.sendPluginMessage(this.plugin, "BungeeCord", output.toByteArray());
     return future;
   }
 
@@ -338,7 +336,7 @@ public class BungeeChannelApi {
     output.writeUTF("KickPlayer");
     output.writeUTF(playerName);
     output.writeUTF(kickMessage);
-    player.sendPluginMessage(this.plugin, channelName, output.toByteArray());
+    player.sendPluginMessage(this.plugin, "BungeeCord", output.toByteArray());
   }
 
   /**
@@ -362,7 +360,7 @@ public class BungeeChannelApi {
     output.writeUTF(subChannel);
     output.writeShort(data.length);
     output.write(data);
-    player.sendPluginMessage(this.plugin, channelName, output.toByteArray());
+    player.sendPluginMessage(this.plugin, "BungeeCord", output.toByteArray());
   }
 
   /**
@@ -382,12 +380,12 @@ public class BungeeChannelApi {
     output.writeUTF(subChannel);
     output.writeShort(data.length);
     output.write(data);
-    player.sendPluginMessage(this.plugin, channelName, output.toByteArray());
+    player.sendPluginMessage(this.plugin, "BungeeCord", output.toByteArray());
   }
 
   @SuppressWarnings("unchecked")
   private void onPluginMessageReceived(String channel, Player player, byte[] message) {
-    if (!channel.equalsIgnoreCase(channelName)) return;
+    if (!channel.equalsIgnoreCase("BungeeCord")) return;
 
     ByteArrayDataInput input = ByteStreams.newDataInput(message);
     String subchannel = input.readUTF();
@@ -495,7 +493,7 @@ public class BungeeChannelApi {
    */
   public void unregister() {
     Messenger messenger = Bukkit.getServer().getMessenger();
-    messenger.unregisterIncomingPluginChannel(plugin, channelName, messageListener);
+    messenger.unregisterIncomingPluginChannel(plugin, "BungeeCord", messageListener);
     messenger.unregisterOutgoingPluginChannel(plugin);
     callbackMap.clear();
   }

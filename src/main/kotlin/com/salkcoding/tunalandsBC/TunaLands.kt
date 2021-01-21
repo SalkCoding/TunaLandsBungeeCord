@@ -5,10 +5,8 @@ import com.salkcoding.tunalandsBC.commands.LandCommandHandler
 import com.salkcoding.tunalandsBC.commands.sub.*
 import com.salkcoding.tunalandsBC.gui.GuiManager
 import com.salkcoding.tunalandsBC.listener.*
-import io.github.leonardosnt.bungeechannelapi.BungeeChannelApi
+import com.salkcoding.tunalandsBC.bungee.channelapi.BungeeChannelApi
 import org.bukkit.plugin.java.JavaPlugin
-
-const val channelName = "BungeeCord"
 
 lateinit var tunaLands: TunaLands
 lateinit var guiManager: GuiManager
@@ -57,8 +55,6 @@ class TunaLands : JavaPlugin() {
         handler.register("spawn", Spawn())
         handler.register("unban", Unban())
         handler.register("visit", Visit())
-
-        //handler.register("debug", Debug())
 
         getCommand("land")!!.setExecutor(handler)
 

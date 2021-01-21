@@ -3,7 +3,7 @@ package com.salkcoding.tunalandsBC.bungee
 import com.google.common.io.ByteStreams
 import com.salkcoding.tunalandsBC.bungeeApi
 import com.salkcoding.tunalandsBC.tunaLands
-import io.github.leonardosnt.bungeechannelapi.BungeeChannelApi
+import com.salkcoding.tunalandsBC.bungee.channelapi.BungeeChannelApi
 import org.bukkit.entity.Player
 import java.io.ByteArrayOutputStream
 import java.io.DataOutputStream

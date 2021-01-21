@@ -3,7 +3,7 @@ package com.salkcoding.tunalandsBC.bungee
 import com.google.common.io.ByteStreams
 import com.salkcoding.tunalandsBC.gui.render.openBanListGui
 import com.salkcoding.tunalandsBC.lands.BanData
-import io.github.leonardosnt.bungeechannelapi.BungeeChannelApi
+import com.salkcoding.tunalandsBC.bungee.channelapi.BungeeChannelApi
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import java.util.*
