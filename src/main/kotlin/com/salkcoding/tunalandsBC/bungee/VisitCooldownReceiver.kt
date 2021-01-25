@@ -23,7 +23,7 @@ class VisitCooldownReceiver : BungeeChannelApi.ForwardConsumer {
             val visitCooldown = inMessage.readLong()
 
             TeleportCooltime.addPlayer(player, null, visitCooldown, {
-                bungeeApi.connectOther(player.name, serverName)
+                bungeeApi.connect(player, serverName)
 
                 val messageBytes = ByteArrayOutputStream()
                 val messageOut = DataOutputStream(messageBytes)

@@ -13,7 +13,6 @@ lateinit var guiManager: GuiManager
 
 lateinit var bungeeApi: BungeeChannelApi
 
-
 class TunaLands : JavaPlugin() {
 
     lateinit var serverName: String
@@ -61,7 +60,6 @@ class TunaLands : JavaPlugin() {
         server.pluginManager.registerEvents(InventoryClickListener(), this)
         server.pluginManager.registerEvents(InventoryCloseListener(), this)
         server.pluginManager.registerEvents(InventoryDragListener(), this)
-        server.pluginManager.registerEvents(PlayerConnectListener(), this)
 
         logger.info("Plugin is Enabled")
     }
