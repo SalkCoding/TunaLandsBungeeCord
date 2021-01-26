@@ -1,6 +1,7 @@
 package com.salkcoding.tunalandsBC.commands.sub
 
 import com.salkcoding.tunalandsBC.bungeeApi
+import com.salkcoding.tunalandsBC.currentServerName
 import com.salkcoding.tunalandsBC.tunaLands
 import com.salkcoding.tunalandsBC.util.errorFormat
 import org.bukkit.Bukkit
@@ -32,7 +33,7 @@ class Visit : CommandExecutor {
             val messageOut = DataOutputStream(messageBytes)
             try {
                 messageOut.writeUTF(player.uniqueId.toString())
-                messageOut.writeUTF(tunaLands.serverName)
+                messageOut.writeUTF(currentServerName)
             } catch (exception: IOException) {
                 exception.printStackTrace()
             }

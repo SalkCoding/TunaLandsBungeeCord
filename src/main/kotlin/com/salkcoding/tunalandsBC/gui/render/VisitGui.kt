@@ -3,6 +3,7 @@ package com.salkcoding.tunalandsBC.gui.render
 import br.com.devsrsouza.kotlinbukkitapi.extensions.item.displayName
 import com.salkcoding.tunalandsBC.bungee.visitReceiverMap
 import com.salkcoding.tunalandsBC.bungeeApi
+import com.salkcoding.tunalandsBC.currentServerName
 import com.salkcoding.tunalandsBC.gui.GuiInterface
 import com.salkcoding.tunalandsBC.guiManager
 import com.salkcoding.tunalandsBC.tunaLands
@@ -227,7 +228,7 @@ class VisitGui(private val player: Player) : GuiInterface {
                     try {
                         messageOut.writeUTF(uuid.toString())
                         messageOut.writeUTF(player.name)
-                        messageOut.writeUTF(tunaLands.serverName)
+                        messageOut.writeUTF(currentServerName)
                         messageOut.writeUTF(lands.ownerUUID.toString())
                     } catch (exception: IOException) {
                         exception.printStackTrace()

@@ -1,5 +1,5 @@
 plugins {
-    id "org.jetbrains.kotlin.jvm" version "1.4.10"
+    id "org.jetbrains.kotlin.jvm" version "1.4.21"
 }
 
 group "kr.kro.salk"
@@ -19,5 +19,5 @@ repositories {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib"
     compileOnly "br.com.devsrsouza.kotlinbukkitapi:core:0.2.0-SNAPSHOT"
-    compileOnly "net.pl3x.purpur:purpur-api:1.16.4-R0.1-SNAPSHOT"
+    compileOnly "net.pl3x.purpur:purpur-api:1.16.5-R0.1-SNAPSHOT"
 }
