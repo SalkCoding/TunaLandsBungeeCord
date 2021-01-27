@@ -1,7 +1,7 @@
-package com.salkcoding.tunalandsBC.commands.sub
+package com.salkcoding.tunalandsbc.commands.sub
 
-import com.salkcoding.tunalandsBC.util.infoFormat
-import com.salkcoding.tunalandsBC.util.warnFormat
+import com.salkcoding.tunalandsbc.util.infoFormat
+import com.salkcoding.tunalandsbc.util.warnFormat
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender

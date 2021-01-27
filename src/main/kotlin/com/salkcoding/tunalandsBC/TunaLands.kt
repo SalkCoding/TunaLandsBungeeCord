@@ -1,12 +1,11 @@
-package com.salkcoding.tunalandsBC
+package com.salkcoding.tunalandsbc
 
-import com.salkcoding.tunalandsBC.bungee.*
-import com.salkcoding.tunalandsBC.commands.LandCommandHandler
-import com.salkcoding.tunalandsBC.commands.sub.*
-import com.salkcoding.tunalandsBC.gui.GuiManager
-import com.salkcoding.tunalandsBC.listener.*
-import com.salkcoding.tunalandsBC.bungee.channelapi.BungeeChannelApi
-import org.bukkit.Bukkit
+import com.salkcoding.tunalandsbc.bungee.*
+import com.salkcoding.tunalandsbc.commands.LandCommandHandler
+import com.salkcoding.tunalandsbc.commands.sub.*
+import com.salkcoding.tunalandsbc.gui.GuiManager
+import com.salkcoding.tunalandsbc.listener.*
+import com.salkcoding.tunalandsbc.bungee.channelapi.BungeeChannelApi
 import org.bukkit.plugin.java.JavaPlugin
 
 lateinit var tunaLands: TunaLands
@@ -21,6 +20,7 @@ class TunaLands : JavaPlugin() {
         tunaLands = this
 
         saveDefaultConfig()
+        currentServerName = config.getString("serverName")!!
 
         guiManager = GuiManager()
 
@@ -33,11 +33,6 @@ class TunaLands : JavaPlugin() {
         bungeeApi.registerForwardListener("tunalands-spawn", SpawnCooldownReceiver())
         //Reload
         bungeeApi.registerForwardListener("tunalands-reload", ReloadReceiver())
-
-        Bukkit.getScheduler().runTaskAsynchronously(this, Runnable {
-            val future = bungeeApi.server
-            currentServerName = future.get()
-        })
 
         val handler = LandCommandHandler()
         handler.register("accept", Accept())

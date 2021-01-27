@@ -1,9 +1,9 @@
-package com.salkcoding.tunalandsBC.bungee
+package com.salkcoding.tunalandsbc.bungee
 
 import com.google.common.io.ByteStreams
-import com.salkcoding.tunalandsBC.bungeeApi
-import com.salkcoding.tunalandsBC.util.TeleportCooltime
-import com.salkcoding.tunalandsBC.bungee.channelapi.BungeeChannelApi
+import com.salkcoding.tunalandsbc.bungeeApi
+import com.salkcoding.tunalandsbc.util.TeleportCooltime
+import com.salkcoding.tunalandsbc.bungee.channelapi.BungeeChannelApi
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import java.io.ByteArrayOutputStream

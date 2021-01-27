@@ -1,4 +1,4 @@
-package com.salkcoding.tunalandsBC.lands
+package com.salkcoding.tunalandsbc.lands
 
 import java.util.*
 

@@ -1,4 +1,4 @@
-package com.salkcoding.tunalandsBC.util
+package com.salkcoding.tunalandsbc.util
 
 import org.bukkit.ChatColor
 

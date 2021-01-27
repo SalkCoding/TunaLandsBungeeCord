@@ -1,4 +1,4 @@
-package com.salkcoding.tunalandsBC.commands
+package com.salkcoding.tunalandsbc.commands
 
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor

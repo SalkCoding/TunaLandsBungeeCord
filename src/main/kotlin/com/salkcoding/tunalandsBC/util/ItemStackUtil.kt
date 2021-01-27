@@ -1,4 +1,4 @@
-package com.salkcoding.tunalandsBC.util
+package com.salkcoding.tunalandsbc.util
 
 import br.com.devsrsouza.kotlinbukkitapi.extensions.item.displayName
 import org.bukkit.Material

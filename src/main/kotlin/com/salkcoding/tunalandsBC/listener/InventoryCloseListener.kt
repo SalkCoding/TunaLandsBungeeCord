@@ -1,6 +1,6 @@
-package com.salkcoding.tunalandsBC.listener
+package com.salkcoding.tunalandsbc.listener
 
-import com.salkcoding.tunalandsBC.guiManager
+import com.salkcoding.tunalandsbc.guiManager
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.inventory.InventoryCloseEvent

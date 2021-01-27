@@ -1,10 +1,10 @@
-package com.salkcoding.tunalandsBC.gui.render
+package com.salkcoding.tunalandsbc.gui.render
 
 import br.com.devsrsouza.kotlinbukkitapi.extensions.item.displayName
-import com.salkcoding.tunalandsBC.bungee.banReceiverMap
-import com.salkcoding.tunalandsBC.gui.GuiInterface
-import com.salkcoding.tunalandsBC.guiManager
-import com.salkcoding.tunalandsBC.util.*
+import com.salkcoding.tunalandsbc.bungee.banReceiverMap
+import com.salkcoding.tunalandsbc.gui.GuiInterface
+import com.salkcoding.tunalandsbc.guiManager
+import com.salkcoding.tunalandsbc.util.*
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.Sound

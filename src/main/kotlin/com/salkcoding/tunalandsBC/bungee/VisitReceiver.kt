@@ -1,9 +1,9 @@
-package com.salkcoding.tunalandsBC.bungee
+package com.salkcoding.tunalandsbc.bungee
 
 import com.google.common.io.ByteStreams
-import com.salkcoding.tunalandsBC.gui.render.openVisitGui
-import com.salkcoding.tunalandsBC.lands.Lands
-import com.salkcoding.tunalandsBC.bungee.channelapi.BungeeChannelApi
+import com.salkcoding.tunalandsbc.gui.render.openVisitGui
+import com.salkcoding.tunalandsbc.lands.Lands
+import com.salkcoding.tunalandsbc.bungee.channelapi.BungeeChannelApi
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import java.util.*

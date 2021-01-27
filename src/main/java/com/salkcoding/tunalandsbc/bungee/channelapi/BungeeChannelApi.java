@@ -5,7 +5,7 @@
  * Licensed under the MIT License. See LICENSE file in the project root for full license information.
  */
 
-package com.salkcoding.tunalandsBC.bungee.channelapi;
+package com.salkcoding.tunalandsbc.bungee.channelapi;
 
 import com.google.common.collect.Iterables;
 import com.google.common.io.ByteArrayDataInput;

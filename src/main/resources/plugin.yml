@@ -1,5 +1,5 @@
 name: TunaLands
-main: com.salkcoding.tunalandsBC.TunaLands
+main: com.salkcoding.tunalandsbc.TunaLands
 version: 1.0.0-SNAPSHOT
 description: Protect lands with some money
 api-version: 1.16

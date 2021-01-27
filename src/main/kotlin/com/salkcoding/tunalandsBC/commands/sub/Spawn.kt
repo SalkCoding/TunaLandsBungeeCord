@@ -1,9 +1,9 @@
-package com.salkcoding.tunalandsBC.commands.sub
+package com.salkcoding.tunalandsbc.commands.sub
 
-import com.salkcoding.tunalandsBC.bungeeApi
-import com.salkcoding.tunalandsBC.currentServerName
-import com.salkcoding.tunalandsBC.tunaLands
-import com.salkcoding.tunalandsBC.util.errorFormat
+import com.salkcoding.tunalandsbc.bungeeApi
+import com.salkcoding.tunalandsbc.currentServerName
+import com.salkcoding.tunalandsbc.tunaLands
+import com.salkcoding.tunalandsbc.util.errorFormat
 import org.bukkit.Bukkit
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
