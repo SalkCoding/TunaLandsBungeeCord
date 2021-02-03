@@ -6,6 +6,7 @@ import com.salkcoding.tunalandsbc.gui.GuiInterface
 import com.salkcoding.tunalandsbc.guiManager
 import com.salkcoding.tunalandsbc.util.*
 import org.bukkit.Bukkit
+import org.bukkit.ChatColor
 import org.bukkit.Material
 import org.bukkit.Sound
 import org.bukkit.entity.Player
@@ -22,11 +23,11 @@ class BanListGui(private val player: Player) : GuiInterface {
     private lateinit var playerList: List<UUID>
 
     private val sortButton = (Material.HOPPER * 1).apply {
-        this.displayName("정렬 방법 선택")
+        this.displayName("${ChatColor.WHITE}정렬 방법 선택")
     }
 
     private val statisticsInfo = (Material.PAINTING * 1).apply {
-        this.displayName("통계")
+        this.displayName("${ChatColor.WHITE}통계")
     }
 
     private var sortWay = 0
@@ -34,7 +35,7 @@ class BanListGui(private val player: Player) : GuiInterface {
     override fun render(inv: Inventory) {
         statisticsInfo.apply {
             this.lore = listOf(
-                "밴 된 유저: ${banMap.size}명"
+                "${ChatColor.WHITE}밴 된 유저: ${ChatColor.RED}${banMap.size}${ChatColor.WHITE}명"
             )
         }
 
@@ -71,11 +72,11 @@ class BanListGui(private val player: Player) : GuiInterface {
 
         sortButton.apply {
             this.lore = listOf(
-                "현재 보기 상태: $sortLore",
-                "기본: 최근에 밴 된 순서로 봅니다.",
-                "오래된 순: 오래된 순서대로 봅니다.",
+                "${ChatColor.WHITE}현재 보기 상태: ${ChatColor.GOLD}$sortLore",
+                "${ChatColor.WHITE}기본: 최근에 밴 된 순서로 봅니다.",
+                "${ChatColor.WHITE}오래된 순: 오래된 순서대로 봅니다.",
                 "",
-                "클릭하여 정렬 방법을 변경할 수 있습니다."
+                "${ChatColor.WHITE}클릭하여 정렬 방법을 변경할 수 있습니다."
             )
         }
         inv.setItem(3, sortButton)
@@ -94,8 +95,8 @@ class BanListGui(private val player: Player) : GuiInterface {
                 meta.owningPlayer = entry
                 meta.setDisplayName(entry.name)
                 meta.lore = listOf(
-                    "UUID: ${banData.uuid}",
-                    "추방 일자: ${
+                    "${ChatColor.WHITE}UUID: ${ChatColor.GRAY}${banData.uuid}",
+                    "${ChatColor.WHITE}추방 일자: ${ChatColor.GRAY}${
                         date.get(Calendar.YEAR)
                     }/${
                         date.get(Calendar.MONTH) + 1
@@ -163,7 +164,7 @@ class BanListGui(private val player: Player) : GuiInterface {
 }
 
 fun Player.openBanListGui() {
-    val inventory = Bukkit.createInventory(null, 54, "Ban list GUI")
+    val inventory = Bukkit.createInventory(null, 54, "밴 목록")
     val gui = BanListGui(this)
     gui.render(inventory)
 
