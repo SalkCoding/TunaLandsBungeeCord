@@ -35,6 +35,8 @@ class Deny : CommandExecutor {
                 messageOut.writeUTF(player.uniqueId.toString())
             } catch (exception: IOException) {
                 exception.printStackTrace()
+            } finally {
+                messageOut.close()
             }
 
             bungeeApi.forward("ALL", "tunalands-deny", messageBytes.toByteArray())

@@ -229,10 +229,13 @@ class VisitGui(private val player: Player) : GuiInterface {
                     try {
                         messageOut.writeUTF(uuid.toString())
                         messageOut.writeUTF(player.name)
+                        messageOut.writeBoolean(player.isOp)
                         messageOut.writeUTF(currentServerName)
                         messageOut.writeUTF(lands.ownerUUID.toString())
                     } catch (exception: IOException) {
                         exception.printStackTrace()
+                    } finally {
+                        messageOut.close()
                     }
 
                     bungeeApi.forward("ALL", "tunalands-visit-connect", messageBytes.toByteArray())

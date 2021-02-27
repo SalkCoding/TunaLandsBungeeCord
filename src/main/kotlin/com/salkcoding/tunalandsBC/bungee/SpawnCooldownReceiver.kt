@@ -30,6 +30,8 @@ class SpawnCooldownReceiver : BungeeChannelApi.ForwardConsumer {
                     messageOut.writeUTF(uuid.toString())
                 } catch (exception: IOException) {
                     exception.printStackTrace()
+                } finally {
+                    messageOut.close()
                 }
                 bungeeApi.forward(serverName, "tunalands-spawn-teleport", messageBytes.toByteArray())
             }, true)

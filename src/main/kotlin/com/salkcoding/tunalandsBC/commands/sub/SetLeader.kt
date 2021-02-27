@@ -35,6 +35,8 @@ class SetLeader : CommandExecutor {
                 messageOut.writeUTF(targetName)
             } catch (exception: IOException) {
                 exception.printStackTrace()
+            } finally {
+                messageOut.close()
             }
 
             bungeeApi.forward("ALL", "tunalands-setleader", messageBytes.toByteArray())

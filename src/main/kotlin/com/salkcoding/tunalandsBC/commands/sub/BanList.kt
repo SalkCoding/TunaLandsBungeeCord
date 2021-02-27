@@ -35,6 +35,8 @@ class BanList : CommandExecutor {
                 messageOut.writeUTF(player.name)
             } catch (exception: IOException) {
                 exception.printStackTrace()
+            } finally {
+                messageOut.close()
             }
 
             bungeeApi.forward("ALL", "tunalands-banlist", messageBytes.toByteArray())

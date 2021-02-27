@@ -34,6 +34,8 @@ class Leave : CommandExecutor {
                 messageOut.writeUTF(player.uniqueId.toString())
             } catch (exception: IOException) {
                 exception.printStackTrace()
+            } finally {
+                messageOut.close()
             }
 
             bungeeApi.forward("ALL", "tunalands-leave", messageBytes.toByteArray())

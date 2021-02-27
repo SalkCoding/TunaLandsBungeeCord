@@ -32,6 +32,8 @@ class VisitCooldownReceiver : BungeeChannelApi.ForwardConsumer {
                     messageOut.writeUTF(targetUUID)
                 } catch (exception: IOException) {
                     exception.printStackTrace()
+                } finally {
+                    messageOut.close()
                 }
                 bungeeApi.forward(serverName, "tunalands-visit-teleport", messageBytes.toByteArray())
             }, true)

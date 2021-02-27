@@ -37,6 +37,8 @@ class Spawn : CommandExecutor {
                 messageOut.writeUTF(currentServerName)
             } catch (exception: IOException) {
                 exception.printStackTrace()
+            } finally {
+                messageOut.close()
             }
 
             bungeeApi.forward("ALL", "tunalands-spawn", messageBytes.toByteArray())

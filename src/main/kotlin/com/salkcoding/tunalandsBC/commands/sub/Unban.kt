@@ -35,6 +35,8 @@ class Unban : CommandExecutor {
                 messageOut.writeUTF(targetName)
             } catch (exception: IOException) {
                 exception.printStackTrace()
+            } finally {
+                messageOut.close()
             }
 
             bungeeApi.forward("ALL", "tunalands-unban", messageBytes.toByteArray())

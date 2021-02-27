@@ -31,8 +31,6 @@ class TunaLands : JavaPlugin() {
         bungeeApi.registerForwardListener("tunalands-visit-connect", VisitCooldownReceiver())
         //Spawn
         bungeeApi.registerForwardListener("tunalands-spawn", SpawnCooldownReceiver())
-        //Reload
-        bungeeApi.registerForwardListener("tunalands-reload", ReloadReceiver())
 
         val handler = LandCommandHandler()
         handler.register("accept", Accept())
