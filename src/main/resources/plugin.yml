@@ -6,7 +6,7 @@ api-version: 1.16
 author: Salk_Coding
 depend: [KotlinBukkitAPI]
 commands:
-  land:
+  tunaland:
     description: Base command
-    usage: /land help, /tl help
+    usage: /tunaland help, /tl help
     aliases: [tl]

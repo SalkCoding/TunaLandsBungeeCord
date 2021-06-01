@@ -52,7 +52,7 @@ class TunaLands : JavaPlugin() {
         handler.register("unban", Unban())
         handler.register("visit", Visit())
 
-        getCommand("land")!!.setExecutor(handler)
+        getCommand("tunaland")!!.setExecutor(handler)
 
         server.pluginManager.registerEvents(InventoryClickListener(), this)
         server.pluginManager.registerEvents(InventoryCloseListener(), this)
