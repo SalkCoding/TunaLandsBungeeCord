@@ -4,6 +4,7 @@ import br.com.devsrsouza.kotlinbukkitapi.extensions.item.displayName
 import com.salkcoding.tunalandsbc.bungee.banReceiverMap
 import com.salkcoding.tunalandsbc.gui.GuiInterface
 import com.salkcoding.tunalandsbc.guiManager
+import com.salkcoding.tunalandsbc.tunaLands
 import com.salkcoding.tunalandsbc.util.*
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
@@ -84,30 +85,31 @@ class BanListGui(private val player: Player) : GuiInterface {
 
         val start = currentPage * 36
         val length = min(playerList.size - start, 36)
-
         for (i in start until length) {
-            val head = (Material.PLAYER_HEAD * 1).apply {
-                val meta = this.itemMeta as SkullMeta
-                val entry = Bukkit.getOfflinePlayer(playerList[start + i])
-                val banData = banMap[entry.uniqueId]!!
-                val date = Calendar.getInstance()
-                date.timeInMillis = banData.banned
-                meta.owningPlayer = entry
-                meta.setDisplayName(entry.name)
-                meta.lore = listOf(
-                    "${ChatColor.WHITE}UUID: ${ChatColor.GRAY}${banData.uuid}",
-                    "${ChatColor.WHITE}추방 일자: ${ChatColor.GRAY}${
-                        date.get(Calendar.YEAR)
-                    }/${
-                        date.get(Calendar.MONTH) + 1
-                    }/${
-                        date.get(Calendar.DATE)
-                    }"
-                )
-                this.itemMeta = meta
-            }
-            //Start index is 18 because of decorations
-            inv.setItem(i + 18, head)
+            Bukkit.getScheduler().runTaskAsynchronously(tunaLands, Runnable {
+                val head = (Material.PLAYER_HEAD * 1).apply {
+                    val meta = this.itemMeta as SkullMeta
+                    val entry = Bukkit.getOfflinePlayer(playerList[start + i])
+                    val banData = banMap[entry.uniqueId]!!
+                    val date = Calendar.getInstance()
+                    date.timeInMillis = banData.banned
+                    meta.owningPlayer = entry
+                    meta.setDisplayName(entry.name)
+                    meta.lore = listOf(
+                        "${ChatColor.WHITE}UUID: ${ChatColor.GRAY}${banData.uuid}",
+                        "${ChatColor.WHITE}추방 일자: ${ChatColor.GRAY}${
+                            date.get(Calendar.YEAR)
+                        }/${
+                            date.get(Calendar.MONTH) + 1
+                        }/${
+                            date.get(Calendar.DATE)
+                        }"
+                    )
+                    this.itemMeta = meta
+                }
+                //Start index is 18 because of decorations
+                inv.setItem(i + 18, head)
+            })
         }
 
         if (currentPage < 1)

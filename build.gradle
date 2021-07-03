@@ -1,5 +1,5 @@
 plugins {
-    id "org.jetbrains.kotlin.jvm" version "1.4.21"
+    id "org.jetbrains.kotlin.jvm" version "1.5.20"
 }
 
 group "kr.kro.salk"
@@ -9,7 +9,7 @@ repositories {
     mavenCentral()
     maven {
         name = "KotlinBukkitAPI"
-        url "http://nexus.devsrsouza.com.br/repository/maven-public/"
+        url "https://nexus.devsrsouza.com.br/repository/maven-public/"
     }
     maven {
         url "https://repo.pl3x.net/"
@@ -20,4 +20,5 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib"
     compileOnly "br.com.devsrsouza.kotlinbukkitapi:core:0.2.0-SNAPSHOT"
     compileOnly "net.pl3x.purpur:purpur-api:1.16.5-R0.1-SNAPSHOT"
+    compileOnly files("C:/Users/Josangbeom/Desktop/Minecraft/Library/Metamorphosis.jar")
 }

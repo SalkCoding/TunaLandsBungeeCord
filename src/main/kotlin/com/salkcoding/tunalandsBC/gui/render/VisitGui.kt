@@ -1,12 +1,10 @@
 package com.salkcoding.tunalandsbc.gui.render
 
 import br.com.devsrsouza.kotlinbukkitapi.extensions.item.displayName
+import com.google.gson.JsonObject
+import com.salkcoding.tunalandsbc.*
 import com.salkcoding.tunalandsbc.bungee.visitReceiverMap
-import com.salkcoding.tunalandsbc.bungeeApi
-import com.salkcoding.tunalandsbc.currentServerName
 import com.salkcoding.tunalandsbc.gui.GuiInterface
-import com.salkcoding.tunalandsbc.guiManager
-import com.salkcoding.tunalandsbc.tunaLands
 import com.salkcoding.tunalandsbc.util.*
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
@@ -25,7 +23,7 @@ import kotlin.math.min
 
 class VisitGui(private val player: Player) : GuiInterface {
     private val landMap = visitReceiverMap[player.uniqueId]!!
-    private lateinit var landList: MutableList<UUID>
+    private lateinit var landList: List<UUID>
 
     private val sortButton = (Material.HOPPER * 1).apply {
         this.displayName("${ChatColor.WHITE}정렬 방법 선택")
@@ -70,45 +68,52 @@ class VisitGui(private val player: Player) : GuiInterface {
                 //Default sorting
                 landList = landMap.keys.sortedByDescending {
                     landMap[it]!!.createdMillisecond
-                }.toMutableList()
+                }
                 "기본"
             }
             1 -> {
                 //Public sorting
                 landList = landMap.keys.sortedByDescending {
                     landMap[it]!!.createdMillisecond
-                }.toMutableList()
+                }
                 "공개 지역"
             }
             2 -> {
                 //Private sorting
                 landList = landMap.keys.sortedByDescending {
                     landMap[it]!!.createdMillisecond
-                }.toMutableList()
+                }
                 "비공개 지역"
             }
             3 -> {
-                //Solo sorting
+                //Recommend count sorting
                 landList = landMap.keys.sortedByDescending {
-                    landMap[it]!!.createdMillisecond
-                }.filter {
-                    landMap[it]!!.memberSize == 1
-                }.toMutableList()
-                "혼자"
+                    landMap[it]!!.recommend
+                }
+                "추천 수"
             }
             4 -> {
                 //Member count sorting
                 landList = landMap.keys.sortedByDescending {
                     landMap[it]!!.memberSize
-                }.toMutableList()
+                }
                 "멤버 수"
             }
             5 -> {
                 //Visitor count sorting
                 landList = landMap.keys.sortedByDescending {
                     landMap[it]!!.visitorCount
-                }.toMutableList()
+                }
                 "방문자 수"
+            }
+            6 -> {
+                //Solo sorting
+                landList = landMap.keys.sortedByDescending {
+                    landMap[it]!!.createdMillisecond
+                }.filter {
+                    landMap[it]!!.memberSize == 1
+                }
+                "혼자 운영중인 지역"
             }
             else -> ""
         }
@@ -116,12 +121,13 @@ class VisitGui(private val player: Player) : GuiInterface {
         sortButton.apply {
             this.lore = listOf(
                 "${ChatColor.WHITE}현재 보기 상태: ${ChatColor.GOLD}$sortLore",
-                "${ChatColor.WHITE}기본: 생성된 시간이 오래된 순서로 모든 지역의 목록을 봅니다.",
-                "${ChatColor.WHITE}공개 지역: 공개로 설정된 지역의 목록을 생성된 시간이 오래된 순서로 봅니다.",
-                "${ChatColor.WHITE}비공개 지역: 비공개로 설정된 지역의 목록을 생성된 시간이 오래된 순서로 봅니다.",
-                "${ChatColor.WHITE}혼자:  혼자 살아가는 지역들을, 생성된 시간이 오래된 순서로 봅니다.",
-                "${ChatColor.WHITE}멤버 수: 멤버가 많은 순으로 지역의 목록을 봅니다.",
-                "${ChatColor.WHITE}방문자 수: 방문자 수가 많은 순으로 지역의 목록을 봅니다.",
+                "${ChatColor.WHITE}기본: 생성된 시간이 오래된 순으로 정렬합니다.",
+                "${ChatColor.WHITE}공개 지역: 공개로 설정된 지역의 목록을 생성된 시간이 오래된 순으로  정렬합니다.",
+                "${ChatColor.WHITE}비공개 지역: 비공개로 설정된 지역의 목록을 생성된 시간이 오래된 순서으로 정렬합니다.",
+                "${ChatColor.WHITE}추천 수: 추천이 많은 순으로 정렬합니다.",
+                "${ChatColor.WHITE}멤버 수: 멤버가 많은 순으로 정렬합니다.",
+                "${ChatColor.WHITE}방문자 수: 방문자 수가 많은 순으로 정렬합니다.",
+                "${ChatColor.WHITE}혼자 운영중인 지역:  혼자 운영중인 지역들을, 생성된 시간이 오래된 순으로 정렬합니다.",
                 "",
                 "${ChatColor.WHITE}클릭하여 정렬 방법을 변경할 수 있습니다."
             )
@@ -131,41 +137,47 @@ class VisitGui(private val player: Player) : GuiInterface {
 
         val start = currentPage * 36
         val length = min(landList.size - start, 36)
-
         for (i in start until length) {
-            val uuid = landList[start + i]
-            val entry = Bukkit.getOfflinePlayer(uuid)
-            val lands = landMap[uuid]!!
+            Bukkit.getScheduler().runTaskAsynchronously(tunaLands, Runnable {
+                val uuid = landList[start + i]
+                val entry = Bukkit.getOfflinePlayer(uuid)
+                val lands = landMap[uuid]!!
 
-            val head = (Material.PLAYER_HEAD * 1).apply {
-                val meta = this.itemMeta as SkullMeta
-                val created = Calendar.getInstance()
-                created.timeInMillis = lands.createdMillisecond
-                meta.owningPlayer = entry
-                meta.setDisplayName(entry.name)
-                val lore = mutableListOf(
-                    "${ChatColor.WHITE}공개 여부: ${
-                        when (lands.open) {
-                            true -> "${ChatColor.GREEN}공개"
-                            false -> "${ChatColor.RED}비공개"
-                        }
-                    }",
-                    "${ChatColor.WHITE}멤버 수: ${ChatColor.GOLD}${lands.memberSize}",
-                    "${ChatColor.WHITE}방문자 수: ${ChatColor.GOLD}${lands.visitorCount}",
-                    "${ChatColor.WHITE}생성일: ${ChatColor.GRAY}${created.get(Calendar.YEAR)}/${created.get(Calendar.MONTH) + 1}/${created.get(Calendar.DATE)}",
-                )
-                (0 until lands.lore.size).forEach { i ->
-                    lore.add(i, lands.lore[i])
+                val head = (Material.PLAYER_HEAD * 1).apply {
+                    val meta = this.itemMeta as SkullMeta
+                    val created = Calendar.getInstance()
+                    created.timeInMillis = lands.createdMillisecond
+                    meta.owningPlayer = entry
+                    meta.setDisplayName(lands.landsName)
+                    val lore = mutableListOf(
+                        "${ChatColor.WHITE}공개 여부: ${
+                            when (lands.open) {
+                                true -> "${ChatColor.GREEN}공개"
+                                false -> "${ChatColor.RED}비공개"
+                            }
+                        }",
+                        "${ChatColor.WHITE}멤버 수: ${ChatColor.GOLD}${lands.memberSize}",
+                        "${ChatColor.WHITE}방문자 수: ${ChatColor.GOLD}${lands.visitorCount}",
+                        "${ChatColor.WHITE}추천 수: ${ChatColor.GOLD}${lands.recommend}",
+                        "${ChatColor.WHITE}생성일: ${ChatColor.GRAY}${created.get(Calendar.YEAR)}/${created.get(Calendar.MONTH) + 1}/${
+                            created.get(
+                                Calendar.DATE
+                            )
+                        }",
+                    )
+                    (0 until lands.lore.size).forEach { i ->
+                        lore.add(i, lands.lore[i])
+                    }
+                    if (lands.open) {
+                        lore.add("")
+                        lore.add("${ChatColor.WHITE}클릭하여 이동할 수 있습니다.")
+                    }
+                    meta.lore = lore
+                    this.itemMeta = meta
                 }
-                if (lands.open) {
-                    lore.add("")
-                    lore.add("${ChatColor.WHITE}클릭하여 이동할 수 있습니다.")
-                }
-                meta.lore = lore
-                this.itemMeta = meta
-            }
-            //Start index is 18 because of decorations
-            inv.setItem(i + 18, head)
+                //Start index is 18 because of decorations
+                inv.setItem(i + 18, head)
+            })
         }
 
         if (currentPage < 1)
@@ -224,21 +236,14 @@ class VisitGui(private val player: Player) : GuiInterface {
 
                 val uuid = player.uniqueId
                 Bukkit.getScheduler().runTaskAsynchronously(tunaLands, Runnable {
-                    val messageBytes = ByteArrayOutputStream()
-                    val messageOut = DataOutputStream(messageBytes)
-                    try {
-                        messageOut.writeUTF(uuid.toString())
-                        messageOut.writeUTF(player.name)
-                        messageOut.writeBoolean(player.isOp)
-                        messageOut.writeUTF(currentServerName)
-                        messageOut.writeUTF(lands.ownerUUID.toString())
-                    } catch (exception: IOException) {
-                        exception.printStackTrace()
-                    } finally {
-                        messageOut.close()
+                    val sendJson = JsonObject().apply {
+                        addProperty("uuid", uuid.toString())
+                        addProperty("name", player.name)
+                        addProperty("isOp", player.isOp)
+                        addProperty("serverName", currentServerName)
+                        addProperty("ownerUUID", lands.ownerUUID.toString())
                     }
-
-                    bungeeApi.forward("ALL", "tunalands-visit-connect", messageBytes.toByteArray())
+                    metamorphosis.send("com.salkcoding.tunalands.visit_connect", sendJson.toString())
                 })
             }
         }

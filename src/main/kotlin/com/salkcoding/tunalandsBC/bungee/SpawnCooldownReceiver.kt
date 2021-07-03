@@ -1,40 +1,46 @@
 package com.salkcoding.tunalandsbc.bungee
 
-import com.google.common.io.ByteStreams
+import com.google.gson.JsonObject
+import com.google.gson.JsonParser
 import com.salkcoding.tunalandsbc.bungeeApi
+import com.salkcoding.tunalandsbc.currentServerName
+import com.salkcoding.tunalandsbc.metamorphosis
 import com.salkcoding.tunalandsbc.util.TeleportCooltime
-import com.salkcoding.tunalandsbc.bungee.channelapi.BungeeChannelApi
+import fish.evatuna.metamorphosis.kafka.KafkaReceiveEvent
 import org.bukkit.Bukkit
-import org.bukkit.entity.Player
-import java.io.ByteArrayOutputStream
-import java.io.DataOutputStream
-import java.io.IOException
+import org.bukkit.event.EventHandler
+import org.bukkit.event.Listener
 import java.util.*
 
-class SpawnCooldownReceiver : BungeeChannelApi.ForwardConsumer {
+class SpawnCooldownReceiver : Listener {
 
-    override fun accept(channel: String, receiver: Player, data: ByteArray) {
-        val inMessage = ByteStreams.newDataInput(data)
-        val uuid = UUID.fromString(inMessage.readUTF())
-        val player = Bukkit.getPlayer(uuid)
-        if (player != null) {//Leave server before teleport
-            val serverName = inMessage.readUTF()
-            val spawnCooldown = inMessage.readLong()
+    @EventHandler
+    fun onReceived(event: KafkaReceiveEvent) {
+        if (!event.key.startsWith("com.salkcoding.tunalands")) return
+        //Split a last sub key
+        when (event.key.split(".").last()) {
+            "response_spawn" -> {
+                val json = JsonParser().parse(event.value).asJsonObject
+                val serverName = json["serverName"].asString
+                if (currentServerName != serverName) return
 
-            TeleportCooltime.addPlayer(player, null, spawnCooldown, {
-                bungeeApi.connect(player, serverName)
+                val uuid = UUID.fromString(json["uuid"].asString)
+                val player = Bukkit.getPlayer(uuid)
+                if (player != null) {
+                    val spawnCooldown = json["spawnCooldown"].asLong
 
-                val messageBytes = ByteArrayOutputStream()
-                val messageOut = DataOutputStream(messageBytes)
-                try {
-                    messageOut.writeUTF(uuid.toString())
-                } catch (exception: IOException) {
-                    exception.printStackTrace()
-                } finally {
-                    messageOut.close()
+                    TeleportCooltime.addPlayer(player, null, spawnCooldown, {
+                        bungeeApi.connect(player, json["spawnServerName"].asString)
+
+                        val sendJson = JsonObject().apply {
+                            addProperty("uuid", uuid.toString())
+
+                        }
+
+                        metamorphosis.send("com.salkcoding.tunalands.spawn_teleported", sendJson.toString())
+                    }, true)
                 }
-                bungeeApi.forward(serverName, "tunalands-spawn-teleport", messageBytes.toByteArray())
-            }, true)
+            }
         }
     }
 }

@@ -1,36 +1,47 @@
 package com.salkcoding.tunalandsbc.bungee
 
-import com.google.common.io.ByteStreams
+import com.google.gson.JsonParser
+import com.salkcoding.tunalandsbc.currentServerName
 import com.salkcoding.tunalandsbc.gui.render.openBanListGui
 import com.salkcoding.tunalandsbc.lands.BanData
-import com.salkcoding.tunalandsbc.bungee.channelapi.BungeeChannelApi
+import fish.evatuna.metamorphosis.kafka.KafkaReceiveEvent
 import org.bukkit.Bukkit
-import org.bukkit.entity.Player
+import org.bukkit.event.EventHandler
+import org.bukkit.event.Listener
 import java.util.*
 
 val banReceiverMap = mutableMapOf<UUID, MutableMap<UUID, BanData>>()
 
-class BanListReceiver : BungeeChannelApi.ForwardConsumer {
+class BanListReceiver : Listener {
 
-    override fun accept(channel: String, receiver: Player, data: ByteArray) {
-        val inMessage = ByteStreams.newDataInput(data)
-        val uuid = UUID.fromString(inMessage.readUTF())
-        val player = Bukkit.getPlayer(uuid)
-        if (player == null) {//Leave server before open GUI
-            banReceiverMap.remove(uuid)
-            return
+    @EventHandler
+    fun onReceived(event: KafkaReceiveEvent) {
+        if (!event.key.startsWith("com.salkcoding.tunalands")) return
+        //Split a last sub key
+        when (event.key.split(".").last()) {
+            "response_banlist" -> {
+                val json = JsonParser().parse(event.value).asJsonObject
+                if (currentServerName != json["serverName"].asString) return
+
+                val uuid = UUID.fromString(json["uuid"].asString)
+                val player = Bukkit.getPlayer(uuid)
+                if (player == null) {//Leave server before open GUI
+                    banReceiverMap.remove(uuid)
+                    return
+                }
+                //Prevent NPE
+                if (uuid !in banReceiverMap) banReceiverMap[uuid] = mutableMapOf()
+                val banArray = json["banArray"].asJsonArray
+                banArray.forEach {
+                    val banJson = it.asJsonObject
+                    val targetUUID = UUID.fromString(banJson["targetUUID"].asString)
+                    banReceiverMap[uuid]!![targetUUID] = BanData(
+                        targetUUID,
+                        banJson["banned"].asLong
+                    )
+                }
+                player.openBanListGui()
+            }
         }
-        //Prevent NPE
-        if (uuid !in banReceiverMap) banReceiverMap[uuid] = mutableMapOf()
-        val length = inMessage.readInt()
-        for (i in 0 until length) {
-            val targetUUID = UUID.fromString(inMessage.readUTF())
-            banReceiverMap[uuid]!![targetUUID] = BanData(
-                targetUUID,
-                inMessage.readLong()
-            )
-        }
-        if (length != 36)//Last page
-            player.openBanListGui()
     }
 }
