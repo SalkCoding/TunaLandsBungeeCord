@@ -21,7 +21,7 @@ class RecommendReceiver : Listener {
         when (event.key.split(".").last()) {
             "response_recommend" -> {
                 val json = JsonParser().parse(event.value).asJsonObject
-                if (currentServerName != json["serverName"].asString) return
+                if (currentServerName != json["targetServerName"].asString) return
 
                 val uuid = UUID.fromString(json["uuid"].asString)
                 val player = Bukkit.getPlayer(uuid)

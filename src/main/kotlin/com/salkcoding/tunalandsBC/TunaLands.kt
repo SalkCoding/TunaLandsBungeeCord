@@ -5,14 +5,15 @@ import com.salkcoding.tunalandsbc.commands.LandCommandHandler
 import com.salkcoding.tunalandsbc.commands.sub.*
 import com.salkcoding.tunalandsbc.gui.GuiManager
 import com.salkcoding.tunalandsbc.listener.*
-import com.salkcoding.tunalandsbc.bungee.channelapi.BungeeChannelApi
 import fish.evatuna.metamorphosis.Metamorphosis
+import me.baiks.bukkitlinked.BukkitLinked
+import me.baiks.bukkitlinked.api.BukkitLinkedAPI
 import org.bukkit.plugin.java.JavaPlugin
 
 lateinit var tunaLands: TunaLands
 lateinit var guiManager: GuiManager
-lateinit var bungeeApi: BungeeChannelApi
 lateinit var metamorphosis: Metamorphosis
+lateinit var bukkitLinkedAPI: BukkitLinkedAPI
 
 lateinit var currentServerName: String
 
@@ -26,15 +27,21 @@ class TunaLands : JavaPlugin() {
 
         guiManager = GuiManager()
 
-        //For sending message or teleportation
-        bungeeApi = BungeeChannelApi.of(this)
-
-        val metamorphosis = server.pluginManager.getPlugin("Metamorphosis") as? Metamorphosis
-        if (metamorphosis == null) {
+        val tempMetamorphosis = server.pluginManager.getPlugin("Metamorphosis") as? Metamorphosis
+        if (tempMetamorphosis == null) {
             server.pluginManager.disablePlugin(this)
             logger.warning("Metamorphosis is not running on this server!")
             return
         }
+        metamorphosis = tempMetamorphosis
+
+        val tempBukkitLinked = server.pluginManager.getPlugin("BukkitLinked") as? BukkitLinked
+        if (tempBukkitLinked == null) {
+            server.pluginManager.disablePlugin(this)
+            logger.warning("BukkitLinked is not running on this server!")
+            return
+        }
+        bukkitLinkedAPI = tempBukkitLinked.api
 
         val handler = LandCommandHandler()
         handler.register("accept", Accept())

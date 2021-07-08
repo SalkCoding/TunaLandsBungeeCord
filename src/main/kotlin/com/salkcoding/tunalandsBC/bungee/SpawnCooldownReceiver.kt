@@ -2,7 +2,6 @@ package com.salkcoding.tunalandsbc.bungee
 
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
-import com.salkcoding.tunalandsbc.bungeeApi
 import com.salkcoding.tunalandsbc.currentServerName
 import com.salkcoding.tunalandsbc.metamorphosis
 import com.salkcoding.tunalandsbc.util.TeleportCooltime
@@ -21,8 +20,7 @@ class SpawnCooldownReceiver : Listener {
         when (event.key.split(".").last()) {
             "response_spawn" -> {
                 val json = JsonParser().parse(event.value).asJsonObject
-                val serverName = json["serverName"].asString
-                if (currentServerName != serverName) return
+                if (currentServerName != json["targetServerName"].asString) return
 
                 val uuid = UUID.fromString(json["uuid"].asString)
                 val player = Bukkit.getPlayer(uuid)
@@ -30,14 +28,12 @@ class SpawnCooldownReceiver : Listener {
                     val spawnCooldown = json["spawnCooldown"].asLong
 
                     TeleportCooltime.addPlayer(player, null, spawnCooldown, {
-                        bungeeApi.connect(player, json["spawnServerName"].asString)
-
                         val sendJson = JsonObject().apply {
                             addProperty("uuid", uuid.toString())
-
+                            addProperty("name", player.name)
                         }
 
-                        metamorphosis.send("com.salkcoding.tunalands.spawn_teleported", sendJson.toString())
+                        metamorphosis.send("com.salkcoding.tunalands.pending_spawn_teleport", sendJson.toString())
                     }, true)
                 }
             }
