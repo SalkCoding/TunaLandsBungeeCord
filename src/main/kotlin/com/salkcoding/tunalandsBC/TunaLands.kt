@@ -1,5 +1,6 @@
 package com.salkcoding.tunalandsbc
 
+import com.salkcoding.tunalands.lands.LandMemberSyncDataService
 import com.salkcoding.tunalandsbc.bungee.*
 import com.salkcoding.tunalandsbc.commands.LandCommandHandler
 import com.salkcoding.tunalandsbc.commands.sub.*
@@ -79,6 +80,10 @@ class TunaLands : JavaPlugin() {
         server.pluginManager.registerEvents(InventoryClickListener(), this)
         server.pluginManager.registerEvents(InventoryCloseListener(), this)
         server.pluginManager.registerEvents(InventoryDragListener(), this)
+
+        // used for getting members list
+
+        server.pluginManager.registerEvents(LandMemberSyncDataService, this)
 
         logger.info("Plugin is Enabled")
     }

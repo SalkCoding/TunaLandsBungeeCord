@@ -13,10 +13,9 @@ object LandMemberSyncDataService : Listener {
 
     @EventHandler
     fun onReceived(event: KafkaReceiveEvent) {
-        if (event.key !== EVENT_KEY) return
-
-        intake(event.value)
-
+        if (event.key == EVENT_KEY) {
+            intake(event.value)
+        }
     }
 
     fun getPlayerRank(uuid: UUID): Rank? = landByPlayerUUIDMap[uuid]?.firstOrNull { it.uuid == uuid }?.rank
