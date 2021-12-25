@@ -19,8 +19,8 @@ dependencies {
     implementation "net.kyori:adventure-text-minimessage:4.1.0-SNAPSHOT"
 
     compileOnly "org.purpurmc.purpur:purpur-api:1.18-R0.1-SNAPSHOT"
-    compileOnly files("C:/Users/화지대/Downloads/Metamorphosis-1.0-API.jar")
-    compileOnly files("C:/Users/화지대/Downloads/bukkitlinked-1.4.2-SNAPSHOT-jar-with-dependencies.jar")
+    compileOnly files("lib/Metamorphosis-1.0-API.jar")
+    compileOnly files("lib/bukkitlinked-1.4.2-SNAPSHOT-jar-with-dependencies.jar")
 }
 
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
