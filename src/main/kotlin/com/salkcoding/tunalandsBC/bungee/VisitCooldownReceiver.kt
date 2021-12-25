@@ -19,7 +19,7 @@ class VisitCooldownReceiver : Listener {
         //Split a last sub key
         when (event.key.split(".").last()) {
             "response_visit_connect" -> {
-                val json = JsonParser().parse(event.value).asJsonObject
+                val json = JsonParser.parseString(event.value).asJsonObject
                 if (currentServerName != json["targetServerName"].asString) return
 
                 val uuid = UUID.fromString(json["uuid"].asString)

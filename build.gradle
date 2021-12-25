@@ -1,22 +1,33 @@
 plugins {
-    id "org.jetbrains.kotlin.jvm" version "1.5.20"
+    id "org.jetbrains.kotlin.jvm" version "1.6.10"
 }
 
 group "kr.kro.salk"
-version "1.1.0-SNAPSHOT"
+version "1.1.4-SNAPSHOT"
 
 repositories {
     mavenCentral()
-    maven {
-        url "https://repo.pl3x.net/"
+    maven {//adventure-text-minimessage
+        url = "https://oss.sonatype.org/content/repositories/snapshots/"
+        name = "sonatype-oss-snapshots"
     }
-
-    maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+    maven { url "https://repo.purpurmc.org/snapshots" }//Purpur
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib"
-    compileOnly "net.pl3x.purpur:purpur-api:1.16.5-R0.1-SNAPSHOT"
-    compileOnly files("C:/Users/shb/IdeaProjects/Metamorphosis/build/libs/Metamorphosis-1.0-API.jar")
-    compileOnly files("C:/Users/shb/IdeaProjects/BukkitLinked/target/bukkitlinked-1.4.1-SNAPSHOT.jar")
+    implementation "net.kyori:adventure-text-minimessage:4.1.0-SNAPSHOT"
+
+    compileOnly "org.purpurmc.purpur:purpur-api:1.18-R0.1-SNAPSHOT"
+    compileOnly files("C:/Users/화지대/Downloads/Metamorphosis-1.0-API.jar")
+    compileOnly files("C:/Users/화지대/Downloads/bukkitlinked-1.4.2-SNAPSHOT-jar-with-dependencies.jar")
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+    kotlinOptions { jvmTarget = JavaVersion.VERSION_17 }
+}
+
+compileJava {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
