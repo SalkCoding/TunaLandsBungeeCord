@@ -20,7 +20,7 @@ class RecommendReceiver : Listener {
         //Split a last sub key
         when (event.key.split(".").last()) {
             "response_recommend" -> {
-                val json = JsonParser().parse(event.value).asJsonObject
+                val json = JsonParser.parseString(event.value).asJsonObject
                 if (currentServerName != json["targetServerName"].asString) return
 
                 val uuid = UUID.fromString(json["uuid"].asString)
