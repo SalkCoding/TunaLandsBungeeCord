@@ -1,9 +1,9 @@
-package com.salkcoding.tunalandsbc.bungee
+package com.salkcoding.tunalandsBC.bungee
 
 import com.google.gson.JsonParser
-import com.salkcoding.tunalandsbc.currentServerName
-import com.salkcoding.tunalandsbc.gui.render.openRecommendGui
-import com.salkcoding.tunalandsbc.lands.Lands
+import com.salkcoding.tunalandsBC.currentServerName
+import com.salkcoding.tunalandsBC.gui.render.openRecommendGui
+import com.salkcoding.tunalandsBC.lands.Lands
 import fish.evatuna.metamorphosis.kafka.KafkaReceiveEvent
 import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler

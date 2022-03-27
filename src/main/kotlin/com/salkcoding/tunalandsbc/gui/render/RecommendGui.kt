@@ -1,10 +1,10 @@
-package com.salkcoding.tunalandsbc.gui.render
+package com.salkcoding.tunalandsBC.gui.render
 
 import com.google.gson.JsonObject
-import com.salkcoding.tunalandsbc.*
-import com.salkcoding.tunalandsbc.bungee.recommendReceiveMap
-import com.salkcoding.tunalandsbc.gui.GuiInterface
-import com.salkcoding.tunalandsbc.util.*
+import com.salkcoding.tunalandsBC.*
+import com.salkcoding.tunalandsBC.bungee.recommendReceiveMap
+import com.salkcoding.tunalandsBC.gui.GuiInterface
+import com.salkcoding.tunalandsBC.util.*
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.Material
