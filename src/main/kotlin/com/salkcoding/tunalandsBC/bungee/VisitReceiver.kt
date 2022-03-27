@@ -1,9 +1,9 @@
-package com.salkcoding.tunalandsbc.bungee
+package com.salkcoding.tunalandsBC.bungee
 
 import com.google.gson.JsonParser
-import com.salkcoding.tunalandsbc.currentServerName
-import com.salkcoding.tunalandsbc.gui.render.openVisitGui
-import com.salkcoding.tunalandsbc.lands.Lands
+import com.salkcoding.tunalandsBC.currentServerName
+import com.salkcoding.tunalandsBC.gui.render.openVisitGui
+import com.salkcoding.tunalandsBC.lands.Lands
 import fish.evatuna.metamorphosis.kafka.KafkaReceiveEvent
 import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
@@ -34,7 +34,7 @@ class VisitReceiver : Listener {
                 val visitArray = json["visitArray"].asJsonArray
                 visitArray.forEach {
                     val visitJson = it.asJsonObject
-                    val targetUUID = UUID.fromString(visitJson["targetUUID"].asString)
+                    val ownerUUID = UUID.fromString(visitJson["ownerUUID"].asString)
                     val open = visitJson["open"].asBoolean
                     val memberSize = visitJson["memberSize"].asInt
                     val visitorCount = visitJson["visitorCount"].asLong
@@ -45,8 +45,8 @@ class VisitReceiver : Listener {
                     visitJson["lore"].asJsonArray.forEach { string ->
                         lore.add(string.asString)
                     }
-                    visitReceiverMap[uuid]!![targetUUID] = Lands(
-                        targetUUID, open, memberSize, visitorCount, createdMillisecond, recommend, landsName, lore
+                    visitReceiverMap[uuid]!![ownerUUID] = Lands(
+                        ownerUUID, open, memberSize, visitorCount, createdMillisecond, recommend, landsName, lore
                     )
                 }
                 player.openVisitGui()

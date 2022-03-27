@@ -1,12 +1,12 @@
-package com.salkcoding.tunalandsbc.bungee
+package com.salkcoding.tunalandsBC.bungee
 
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import com.google.gson.stream.MalformedJsonException
-import com.salkcoding.tunalandsbc.currentServerName
-import com.salkcoding.tunalandsbc.gui.render.openBanListGui
-import com.salkcoding.tunalandsbc.lands.BanData
-import com.salkcoding.tunalandsbc.tunaLands
+import com.salkcoding.tunalandsBC.currentServerName
+import com.salkcoding.tunalandsBC.gui.render.openBanListGui
+import com.salkcoding.tunalandsBC.lands.BanData
+import com.salkcoding.tunalandsBC.tunaLands
 import fish.evatuna.metamorphosis.kafka.KafkaReceiveEvent
 import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler

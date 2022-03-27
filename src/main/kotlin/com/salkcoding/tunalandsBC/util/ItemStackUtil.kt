@@ -1,4 +1,4 @@
-package com.salkcoding.tunalandsbc.util
+package com.salkcoding.tunalandsBC.util
 
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack

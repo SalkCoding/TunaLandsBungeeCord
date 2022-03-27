@@ -1,9 +1,9 @@
-package com.salkcoding.tunalandsbc.commands.sub
+package com.salkcoding.tunalandsBC.commands.sub
 
 import com.google.gson.JsonObject
-import com.salkcoding.tunalandsbc.metamorphosis
-import com.salkcoding.tunalandsbc.tunaLands
-import com.salkcoding.tunalandsbc.util.errorFormat
+import com.salkcoding.tunalandsBC.metamorphosis
+import com.salkcoding.tunalandsBC.tunaLands
+import com.salkcoding.tunalandsBC.util.errorFormat
 import org.bukkit.Bukkit
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor

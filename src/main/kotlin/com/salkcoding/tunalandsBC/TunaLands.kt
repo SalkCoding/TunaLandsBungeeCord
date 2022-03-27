@@ -1,11 +1,11 @@
-package com.salkcoding.tunalandsbc
+package com.salkcoding.tunalandsBC
 
 import com.salkcoding.tunalands.lands.LandMemberSyncDataService
-import com.salkcoding.tunalandsbc.bungee.*
-import com.salkcoding.tunalandsbc.commands.LandCommandHandler
-import com.salkcoding.tunalandsbc.commands.sub.*
-import com.salkcoding.tunalandsbc.gui.GuiManager
-import com.salkcoding.tunalandsbc.listener.*
+import com.salkcoding.tunalandsBC.bungee.*
+import com.salkcoding.tunalandsBC.commands.LandCommandHandler
+import com.salkcoding.tunalandsBC.commands.sub.*
+import com.salkcoding.tunalandsBC.gui.GuiManager
+import com.salkcoding.tunalandsBC.listener.*
 import fish.evatuna.metamorphosis.Metamorphosis
 import me.baiks.bukkitlinked.BukkitLinked
 import me.baiks.bukkitlinked.api.BukkitLinkedAPI

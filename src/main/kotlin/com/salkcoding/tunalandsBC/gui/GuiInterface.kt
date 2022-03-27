@@ -1,4 +1,4 @@
-package com.salkcoding.tunalandsbc.gui
+package com.salkcoding.tunalandsBC.gui
 
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener

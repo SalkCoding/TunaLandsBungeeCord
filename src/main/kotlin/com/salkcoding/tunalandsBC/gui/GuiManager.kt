@@ -1,6 +1,6 @@
-package com.salkcoding.tunalandsbc.gui
+package com.salkcoding.tunalandsBC.gui
 
-import com.salkcoding.tunalandsbc.util.warnFormat
+import com.salkcoding.tunalandsBC.util.warnFormat
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryCloseEvent
 import org.bukkit.event.inventory.InventoryDragEvent

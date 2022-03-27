@@ -1,10 +1,10 @@
-package com.salkcoding.tunalandsbc.gui.render
+package com.salkcoding.tunalandsBC.gui.render
 
-import com.salkcoding.tunalandsbc.bungee.banReceiverMap
-import com.salkcoding.tunalandsbc.gui.GuiInterface
-import com.salkcoding.tunalandsbc.guiManager
-import com.salkcoding.tunalandsbc.tunaLands
-import com.salkcoding.tunalandsbc.util.*
+import com.salkcoding.tunalandsBC.bungee.banReceiverMap
+import com.salkcoding.tunalandsBC.gui.GuiInterface
+import com.salkcoding.tunalandsBC.guiManager
+import com.salkcoding.tunalandsBC.tunaLands
+import com.salkcoding.tunalandsBC.util.*
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.Material

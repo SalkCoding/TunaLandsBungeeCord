@@ -1,6 +1,6 @@
-package com.salkcoding.tunalandsbc.util
+package com.salkcoding.tunalandsBC.util
 
-import com.salkcoding.tunalandsbc.tunaLands
+import com.salkcoding.tunalandsBC.tunaLands
 import org.bukkit.*
 import org.bukkit.entity.Player
 import org.bukkit.event.player.PlayerTeleportEvent

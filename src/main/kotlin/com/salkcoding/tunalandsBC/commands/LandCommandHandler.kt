@@ -1,4 +1,4 @@
-package com.salkcoding.tunalandsbc.commands
+package com.salkcoding.tunalandsBC.commands
 
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
@@ -10,7 +10,7 @@ class LandCommandHandler : CommandExecutor {
 
     //IgnoreCases
     fun register(command: String, executor: CommandExecutor) {
-        val lowerCase = command.toLowerCase()
+        val lowerCase = command.lowercase()
         if (lowerCase !in commandMap) {
             commandMap[lowerCase] = executor
         } else
@@ -22,7 +22,7 @@ class LandCommandHandler : CommandExecutor {
         if (args.isEmpty()) return false
 
         //Sub command
-        val newLabel = args[0].toLowerCase()
+        val newLabel = args[0].lowercase()
         if (newLabel in commandMap) {
             val newArgs = args.toMutableList()
             newArgs.removeFirst()

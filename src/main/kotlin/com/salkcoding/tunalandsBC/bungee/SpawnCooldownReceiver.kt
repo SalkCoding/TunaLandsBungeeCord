@@ -1,10 +1,10 @@
-package com.salkcoding.tunalandsbc.bungee
+package com.salkcoding.tunalandsBC.bungee
 
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
-import com.salkcoding.tunalandsbc.currentServerName
-import com.salkcoding.tunalandsbc.metamorphosis
-import com.salkcoding.tunalandsbc.util.TeleportCooltime
+import com.salkcoding.tunalandsBC.currentServerName
+import com.salkcoding.tunalandsBC.metamorphosis
+import com.salkcoding.tunalandsBC.util.TeleportCooltime
 import fish.evatuna.metamorphosis.kafka.KafkaReceiveEvent
 import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
