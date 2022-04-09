@@ -5,7 +5,7 @@ import com.google.gson.JsonParser
 import com.salkcoding.tunalandsBC.currentServerName
 import com.salkcoding.tunalandsBC.metamorphosis
 import com.salkcoding.tunalandsBC.util.TeleportCooltime
-import fish.evatuna.metamorphosis.kafka.KafkaReceiveEvent
+import fish.evatuna.metamorphosis.redis.MetamorphosisReceiveEvent
 import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -14,7 +14,7 @@ import java.util.*
 class VisitCooldownReceiver : Listener {
 
     @EventHandler
-    fun onReceived(event: KafkaReceiveEvent) {
+    fun onReceived(event: MetamorphosisReceiveEvent) {
         if (!event.key.startsWith("com.salkcoding.tunalands")) return
         //Split a last sub key
         when (event.key.split(".").last()) {

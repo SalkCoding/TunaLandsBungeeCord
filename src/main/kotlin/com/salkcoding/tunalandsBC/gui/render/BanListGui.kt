@@ -23,11 +23,11 @@ class BanListGui(private val player: Player) : GuiInterface {
     private lateinit var playerList: List<UUID>
 
     private val sortButton = (Material.HOPPER * 1).apply {
-        this.setDisplayName("${ChatColor.WHITE}정렬 방법 선택")
+        this.itemMeta.setDisplayName("${ChatColor.WHITE}정렬 방법 선택")
     }
 
     private val statisticsInfo = (Material.PAINTING * 1).apply {
-        this.setDisplayName("${ChatColor.WHITE}통계")
+        this.itemMeta.setDisplayName("${ChatColor.WHITE}통계")
     }
 
     private var sortWay = 0

@@ -5,7 +5,7 @@ import com.salkcoding.tunalandsBC.TunaLands
 import com.salkcoding.tunalandsBC.currentServerName
 import com.salkcoding.tunalandsBC.gui.render.openVisitGui
 import com.salkcoding.tunalandsBC.lands.Lands
-import fish.evatuna.metamorphosis.kafka.KafkaReceiveEvent
+import fish.evatuna.metamorphosis.redis.MetamorphosisReceiveEvent
 import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -16,7 +16,7 @@ val visitReceiverMap = mutableMapOf<UUID, MutableMap<UUID, Lands>>()
 class VisitReceiver : Listener {
 
     @EventHandler
-    fun onReceived(event: KafkaReceiveEvent) {
+    fun onReceived(event: MetamorphosisReceiveEvent) {
         if (!event.key.startsWith("com.salkcoding.tunalands")) return
         //Split a last sub key
         when (event.key.split(".").last()) {

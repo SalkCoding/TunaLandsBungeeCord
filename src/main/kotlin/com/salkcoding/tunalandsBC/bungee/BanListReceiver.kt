@@ -7,7 +7,7 @@ import com.salkcoding.tunalandsBC.currentServerName
 import com.salkcoding.tunalandsBC.gui.render.openBanListGui
 import com.salkcoding.tunalandsBC.lands.BanData
 import com.salkcoding.tunalandsBC.tunaLands
-import fish.evatuna.metamorphosis.kafka.KafkaReceiveEvent
+import fish.evatuna.metamorphosis.redis.MetamorphosisReceiveEvent
 import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -18,7 +18,7 @@ val banReceiverMap = mutableMapOf<UUID, MutableMap<UUID, BanData>>()
 class BanListReceiver : Listener {
 
     @EventHandler
-    fun onReceived(event: KafkaReceiveEvent) {
+    fun onReceived(event: MetamorphosisReceiveEvent) {
         if (!event.key.startsWith("com.salkcoding.tunalands")) return
         lateinit var json: JsonObject
         try {

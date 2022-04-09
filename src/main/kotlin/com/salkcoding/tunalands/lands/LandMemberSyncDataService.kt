@@ -1,7 +1,7 @@
 package com.salkcoding.tunalands.lands
 
 import com.google.gson.JsonParser
-import fish.evatuna.metamorphosis.kafka.KafkaReceiveEvent
+import fish.evatuna.metamorphosis.redis.MetamorphosisReceiveEvent
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import java.util.*
@@ -13,7 +13,7 @@ object LandMemberSyncDataService : Listener {
     data class TunaLandsPlayerDetails(val uuid: UUID, val name: String, val rank: Rank)
 
     @EventHandler
-    fun onReceived(event: KafkaReceiveEvent) {
+    fun onReceived(event: MetamorphosisReceiveEvent) {
         if (event.key == EVENT_KEY) {
             intake(JsonParser.parseString(event.value).asJsonObject["mapString"].asString)
         }

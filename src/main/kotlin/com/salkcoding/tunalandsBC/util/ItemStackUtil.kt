@@ -9,20 +9,20 @@ operator fun Material.times(i: Int): ItemStack {
 
 //Back button
 val backButton = (Material.FEATHER * 1).apply {
-    this.setDisplayName("뒤로가기")
+    this.itemMeta.setDisplayName("뒤로가기")
 }
 
 //Background decoration
 val blackPane = (Material.BLACK_STAINED_GLASS_PANE * 1).apply {
-    this.setDisplayName(" ")
+    this.itemMeta.setDisplayName(" ")
 }
 
 //Paging button
 val nextPageButton = (Material.LIME_STAINED_GLASS_PANE * 1).apply {
-    this.setDisplayName("다음 페이지")
+    this.itemMeta.setDisplayName("다음 페이지")
 }
 
 //Paging button
 val previousPageButton = (Material.LIME_STAINED_GLASS_PANE * 1).apply {
-    this.setDisplayName("이전 페이지")
+    this.itemMeta.setDisplayName("이전 페이지")
 }
