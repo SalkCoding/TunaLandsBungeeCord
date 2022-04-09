@@ -5,6 +5,7 @@ import com.salkcoding.tunalandsBC.gui.GuiInterface
 import com.salkcoding.tunalandsBC.guiManager
 import com.salkcoding.tunalandsBC.tunaLands
 import com.salkcoding.tunalandsBC.util.*
+import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.Material
@@ -23,19 +24,27 @@ class BanListGui(private val player: Player) : GuiInterface {
     private lateinit var playerList: List<UUID>
 
     private val sortButton = (Material.HOPPER * 1).apply {
-        this.itemMeta.setDisplayName("${ChatColor.WHITE}정렬 방법 선택")
+        val meta = this.itemMeta
+        meta.displayName(ComponentFactory.plain("정렬 방법 선택", NamedTextColor.WHITE))
+        this.itemMeta = meta
     }
 
     private val statisticsInfo = (Material.PAINTING * 1).apply {
-        this.itemMeta.setDisplayName("${ChatColor.WHITE}통계")
+        val meta = this.itemMeta
+        meta.displayName(ComponentFactory.plain("통계", NamedTextColor.WHITE))
+        this.itemMeta = meta
     }
 
     private var sortWay = 0
     private var currentPage = 0
     override fun render(inv: Inventory) {
         statisticsInfo.apply {
-            this.lore = listOf(
-                "${ChatColor.WHITE}밴 된 유저: ${ChatColor.RED}${banMap.size}${ChatColor.WHITE}명"
+            this.lore(
+                listOf(
+                    ComponentFactory.plain("밴 된 유저: ", NamedTextColor.WHITE)
+                        .append(ComponentFactory.plain("${banMap.size}", NamedTextColor.RED))
+                        .append(ComponentFactory.plain("명", NamedTextColor.WHITE))
+                )
             )
         }
 
@@ -71,12 +80,15 @@ class BanListGui(private val player: Player) : GuiInterface {
         }
 
         sortButton.apply {
-            this.lore = listOf(
-                "${ChatColor.WHITE}현재 보기 상태: ${ChatColor.GOLD}$sortLore",
-                "${ChatColor.WHITE}기본: 최근에 밴 된 순서로 봅니다.",
-                "${ChatColor.WHITE}오래된 순: 오래된 순서대로 봅니다.",
-                "",
-                "${ChatColor.WHITE}클릭하여 정렬 방법을 변경할 수 있습니다."
+            this.lore(
+                listOf(
+                    ComponentFactory.plain("현재 보기 상태:", NamedTextColor.WHITE)
+                        .append(ComponentFactory.plain(sortLore, NamedTextColor.GOLD)),
+                    ComponentFactory.plain("기본: 최근에 밴 된 순서로 봅니다.", NamedTextColor.WHITE),
+                    ComponentFactory.plain("오래된 순: 오래된 순서대로 봅니다.", NamedTextColor.WHITE),
+                    ComponentFactory.plain(""),
+                    ComponentFactory.plain("클릭하여 정렬 방법을 변경할 수 있습니다.", NamedTextColor.WHITE),
+                )
             )
         }
         inv.setItem(3, sortButton)
@@ -93,7 +105,7 @@ class BanListGui(private val player: Player) : GuiInterface {
                     val date = Calendar.getInstance()
                     date.timeInMillis = banData.banned
                     meta.owningPlayer = entry
-                    meta.setDisplayName(entry.name)
+                    meta.displayName(ComponentFactory.plain(entry.name!!))
                     meta.lore = listOf(
                         "${ChatColor.WHITE}UUID: ${ChatColor.GRAY}${banData.uuid}",
                         "${ChatColor.WHITE}추방 일자: ${ChatColor.GRAY}${
