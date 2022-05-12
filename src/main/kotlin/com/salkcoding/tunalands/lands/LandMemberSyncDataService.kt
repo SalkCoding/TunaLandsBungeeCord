@@ -8,6 +8,7 @@ import java.util.*
 
 object LandMemberSyncDataService : Listener {
     private val EVENT_KEY = "com.salkcoding.tunalands.update_land_member_change"
+    private val BULK_EVENT_KEY = "com.salkcoding.tunalands.update_land_member_change_bulk"
     private val landByPlayerUUIDMap: HashMap<UUID, List<TunaLandsPlayerDetails>> = hashMapOf()
 
     data class TunaLandsPlayerDetails(val uuid: UUID, val name: String, val rank: Rank)
@@ -16,6 +17,8 @@ object LandMemberSyncDataService : Listener {
     fun onReceived(event: MetamorphosisReceiveEvent) {
         if (event.key == EVENT_KEY) {
             intake(JsonParser.parseString(event.value).asJsonObject["mapString"].asString)
+        } else if (event.key == BULK_EVENT_KEY){
+            intakeBulk(JsonParser.parseString(event.value).asJsonObject["mapString"].asString)
         }
     }
 
@@ -35,6 +38,10 @@ object LandMemberSyncDataService : Listener {
             .forEach { playerDetails ->
                 landByPlayerUUIDMap[playerDetails.uuid] = players
             }
+    }
+
+    private fun intakeBulk(value: String) {
+        value.split("&").forEach { intake(it) }
     }
 
 }
