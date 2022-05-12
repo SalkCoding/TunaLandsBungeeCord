@@ -8,6 +8,7 @@ import com.salkcoding.tunalandsBC.guiManager
 import com.salkcoding.tunalandsBC.metamorphosis
 import com.salkcoding.tunalandsBC.tunaLands
 import com.salkcoding.tunalandsBC.util.*
+import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.Material
@@ -25,11 +26,15 @@ class VisitGui(private val player: Player) : GuiInterface {
     private lateinit var landList: List<UUID>
 
     private val sortButton = (Material.HOPPER * 1).apply {
-        this.setDisplayName("${ChatColor.WHITE}정렬 방법 선택")
+        val meta = this.itemMeta
+        meta.displayName(ComponentFactory.plain("정렬 방법 선택", NamedTextColor.WHITE))
+        this.itemMeta = meta
     }
 
     private val statisticsInfo = (Material.PAINTING * 1).apply {
-        this.setDisplayName("${ChatColor.WHITE}지역 통계")
+        val meta = this.itemMeta
+        meta.displayName(ComponentFactory.plain("지역 통계", NamedTextColor.WHITE))
+        this.itemMeta = meta
     }
 
     private var sortWay = 0
@@ -73,14 +78,14 @@ class VisitGui(private val player: Player) : GuiInterface {
             1 -> {
                 //Public sorting
                 landList = landMap.keys.sortedByDescending {
-                    landMap[it]!!.createdMillisecond
+                    landMap[it]!!.open
                 }
                 "공개 지역"
             }
             2 -> {
                 //Private sorting
                 landList = landMap.keys.sortedByDescending {
-                    landMap[it]!!.createdMillisecond
+                    !landMap[it]!!.open
                 }
                 "비공개 지역"
             }
@@ -147,7 +152,7 @@ class VisitGui(private val player: Player) : GuiInterface {
                     val created = Calendar.getInstance()
                     created.timeInMillis = lands.createdMillisecond
                     meta.owningPlayer = entry
-                    meta.setDisplayName(lands.landsName)
+                    meta.displayName(ComponentFactory.plain(lands.landsName))
                     val lore = mutableListOf(
                         "${ChatColor.WHITE}공개 여부: ${
                             when (lands.open) {
@@ -177,6 +182,10 @@ class VisitGui(private val player: Player) : GuiInterface {
                 //Start index is 18 because of decorations
                 inv.setItem(i + 18, head)
             })
+        }
+
+        for (i in length until 36) {
+            inv.clear(i + 18)
         }
 
         if (currentPage < 1)

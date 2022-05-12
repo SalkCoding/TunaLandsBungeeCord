@@ -3,7 +3,7 @@ plugins {
 }
 
 group "kr.kro.salk"
-version "1.1.5-SNAPSHOT"
+version "1.2.0-alpha-7"
 
 repositories {
     mavenCentral()
@@ -11,16 +11,18 @@ repositories {
         url = "https://oss.sonatype.org/content/repositories/snapshots/"
         name = "sonatype-oss-snapshots"
     }
-    maven { url "https://repo.purpurmc.org/snapshots" }//Purpur
+    maven {
+        url = uri("https://papermc.io/repo/repository/maven-public/")
+    }
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib"
     implementation "net.kyori:adventure-text-minimessage:4.1.0-SNAPSHOT"
 
-    compileOnly "org.purpurmc.purpur:purpur-api:1.18-R0.1-SNAPSHOT"
-    compileOnly files("lib/Metamorphosis-1.0-API.jar")
-    compileOnly files("lib/bukkitlinked-1.4.2-SNAPSHOT-jar-with-dependencies.jar")
+    compileOnly("io.papermc.paper:paper-api:1.18.2-R0.1-SNAPSHOT")
+    compileOnly files("lib/Metamorphosis-2.0-API.jar")
+    compileOnly files("lib/bukkitlinked-1.8.6-SNAPSHOT-jar-with-dependencies.jar")
 }
 
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {

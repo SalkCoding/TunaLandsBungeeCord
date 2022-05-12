@@ -1,21 +1,24 @@
 package com.salkcoding.tunalands.lands
 
 import com.google.gson.JsonParser
-import fish.evatuna.metamorphosis.kafka.KafkaReceiveEvent
+import fish.evatuna.metamorphosis.redis.MetamorphosisReceiveEvent
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import java.util.*
 
 object LandMemberSyncDataService : Listener {
     private val EVENT_KEY = "com.salkcoding.tunalands.update_land_member_change"
+    private val BULK_EVENT_KEY = "com.salkcoding.tunalands.update_land_member_change_bulk"
     private val landByPlayerUUIDMap: HashMap<UUID, List<TunaLandsPlayerDetails>> = hashMapOf()
 
     data class TunaLandsPlayerDetails(val uuid: UUID, val name: String, val rank: Rank)
 
     @EventHandler
-    fun onReceived(event: KafkaReceiveEvent) {
+    fun onReceived(event: MetamorphosisReceiveEvent) {
         if (event.key == EVENT_KEY) {
             intake(JsonParser.parseString(event.value).asJsonObject["mapString"].asString)
+        } else if (event.key == BULK_EVENT_KEY){
+            intakeBulk(JsonParser.parseString(event.value).asJsonObject["mapString"].asString)
         }
     }
 
@@ -35,6 +38,10 @@ object LandMemberSyncDataService : Listener {
             .forEach { playerDetails ->
                 landByPlayerUUIDMap[playerDetails.uuid] = players
             }
+    }
+
+    private fun intakeBulk(value: String) {
+        value.split("&").forEach { intake(it) }
     }
 
 }
