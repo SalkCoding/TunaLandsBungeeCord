@@ -1,7 +1,7 @@
 package com.salkcoding.tunalandsBC
 
 import com.salkcoding.tunalands.lands.LandMemberSyncDataService
-import com.salkcoding.tunalands.lands.NonMainServerSyncReceiver
+//import com.salkcoding.tunalands.lands.NonMainServerSyncReceiver
 import com.salkcoding.tunalandsBC.bungee.*
 import com.salkcoding.tunalandsBC.commands.LandCommandHandler
 import com.salkcoding.tunalandsBC.commands.sub.*
@@ -20,7 +20,7 @@ lateinit var bukkitLinkedAPI: BukkitLinkedAPI
 lateinit var currentServerName: String
 
 class TunaLands : JavaPlugin() {
-    var nonMainServerSyncReceiver: NonMainServerSyncReceiver? = null
+//    var nonMainServerSyncReceiver: NonMainServerSyncReceiver? = null
 
     override fun onEnable() {
         tunaLands = this
@@ -87,9 +87,9 @@ class TunaLands : JavaPlugin() {
 
         server.pluginManager.registerEvents(LandMemberSyncDataService, this)
 
-        nonMainServerSyncReceiver = NonMainServerSyncReceiver()
-        nonMainServerSyncReceiver!!.requestToReceiveAllData()
-        server.pluginManager.registerEvents(nonMainServerSyncReceiver!!, this)
+//        nonMainServerSyncReceiver = NonMainServerSyncReceiver()
+//        nonMainServerSyncReceiver!!.requestToReceiveAllData()
+//        server.pluginManager.registerEvents(nonMainServerSyncReceiver!!, this)
 
         logger.info("Plugin is Enabled")
     }
