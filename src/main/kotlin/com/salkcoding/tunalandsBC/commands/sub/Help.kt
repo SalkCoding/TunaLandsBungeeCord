@@ -1,6 +1,5 @@
 package com.salkcoding.tunalandsBC.commands.sub
 
-import com.salkcoding.tunalandsBC.util.errorFormat
 import com.salkcoding.tunalandsBC.util.infoFormat
 import com.salkcoding.tunalandsBC.util.warnFormat
 import org.bukkit.command.Command
@@ -33,18 +32,8 @@ class Help : CommandExecutor {
         sender.sendMessage("/tl setleader (name): 해당 유저를 땅의 소유주로 만듭니다.".infoFormat())
         if (sender.isOp) {
             sender.sendMessage("관리자 전용 디버깅 명령어 목록".infoFormat())
-            sender.sendMessage("/tl debug set (target) (name) (rank): target 유저의 땅의 name 유저의 등급을 (rank)로 변경합니다.".warnFormat())
-            sender.sendMessage("(rank)에 NULL 입력시 kick 처럼 해당 유저를 해당 땅에서 제명시킵니다.".warnFormat())
-            sender.sendMessage("/tl timeset (name) (milliSeconds): 해당 유저의 땅의 시간을 MilliSeconds만큼 더합니다.".errorFormat())
-            sender.sendMessage("(milliSeconds)가 0보다 작거나 같을 경우 해당 땅은 비활성화 되며 비활성화인 땅에 시간을 추가할 경우 다시 활성화됩니다.".warnFormat())
-            sender.sendMessage("/tl debug visit (name): 해당 유저의 땅을 강제로 방문합니다.".warnFormat())
-            sender.sendMessage("/tl debug recommend (name) (count): 해당 유저의 땅의 추천수를 해당 수로 설정합니다.".warnFormat())
-            sender.sendMessage("/tl debug cooldown (name): 해당 유저의 추천 쿨타임을 초기화합니다.".warnFormat())
-            sender.sendMessage("/tl debug player (name): 해당 유저의 소속을 조회합니다.".warnFormat())
-            sender.sendMessage("/tl debug info (name): 해당 유저가 가지고 있는 땅을 보여줍니다.".warnFormat())
-            sender.sendMessage("/tl debug buy: 해당 위치의 청크를 구매합니다.".warnFormat())
-            sender.sendMessage("/tl debug sell: 해당 위치의 청크를 판매합니다.".warnFormat())
-            sender.sendMessage("/tl debug delete (name): 해당 유저의 땅을 삭제합니다.".warnFormat())
+            sender.sendMessage("/tl debug api show: Metamorphosis로 Synced된 데이터를 출력합니다.".warnFormat())
+            sender.sendMessage("/tl debug api rank (name): Metamorphosis로 Synced된 데이터를 기준으로 player rank를 출력합니다.".warnFormat())
         }
         return true
     }

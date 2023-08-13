@@ -54,4 +54,5 @@ object LandMemberSyncDataService : Listener {
         value.split("&").forEach { intake(it) }
     }
 
+    override fun toString(): String = landByPlayerUUIDMap.toString()
 }

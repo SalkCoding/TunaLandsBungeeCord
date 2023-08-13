@@ -4,6 +4,7 @@ import com.salkcoding.tunalands.lands.LandMemberSyncDataService
 //import com.salkcoding.tunalands.lands.NonMainServerSyncReceiver
 import com.salkcoding.tunalandsBC.bungee.*
 import com.salkcoding.tunalandsBC.commands.LandCommandHandler
+import com.salkcoding.tunalandsBC.commands.debug.Debug
 import com.salkcoding.tunalandsBC.commands.sub.*
 import com.salkcoding.tunalandsBC.gui.GuiManager
 import com.salkcoding.tunalandsBC.listener.*
@@ -47,6 +48,8 @@ class TunaLands : JavaPlugin() {
         bukkitLinkedAPI = tempBukkitLinked.api
 
         val handler = LandCommandHandler()
+        handler.register("debug", Debug())
+
         handler.register("accept", Accept())
         handler.register("alba", Alba())
         handler.register("ban", Ban())
