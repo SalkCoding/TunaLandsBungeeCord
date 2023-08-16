@@ -29,7 +29,6 @@ class Delete : CommandExecutor {
         Bukkit.getScheduler().runTaskAsynchronously(tunaLands, Runnable {
             val sendJson = JsonObject()
             sendJson.addProperty("uuid", player.uniqueId.toString())
-            LandMemberSyncDataService.removeLands(player.uniqueId)
 
             metamorphosis.send("com.salkcoding.tunalands.delete", sendJson.toString())
         })

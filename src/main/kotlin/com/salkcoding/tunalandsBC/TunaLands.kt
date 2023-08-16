@@ -1,5 +1,6 @@
 package com.salkcoding.tunalandsBC
 
+import com.salkcoding.tunalands.lands.DeleteSyncReceiver
 import com.salkcoding.tunalands.lands.LandMemberSyncDataService
 //import com.salkcoding.tunalands.lands.NonMainServerSyncReceiver
 import com.salkcoding.tunalandsBC.bungee.*
@@ -89,6 +90,7 @@ class TunaLands : JavaPlugin() {
         // used for getting members list
 
         server.pluginManager.registerEvents(LandMemberSyncDataService, this)
+        server.pluginManager.registerEvents(DeleteSyncReceiver(), this)
 
 //        nonMainServerSyncReceiver = NonMainServerSyncReceiver()
 //        nonMainServerSyncReceiver!!.requestToReceiveAllData()
