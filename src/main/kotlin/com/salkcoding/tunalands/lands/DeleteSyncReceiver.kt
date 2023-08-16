@@ -10,6 +10,7 @@ class DeleteSyncReceiver : Listener {
     @EventHandler
     fun onReceive(event: MetamorphosisReceiveEvent) {
         when (event.key) {
+            "com.salkcoding.tunalands.sync_hego",
             "com.salkcoding.tunalands.sync_ban",
             "com.salkcoding.tunalands.sync_kick",
             "com.salkcoding.tunalands.sync_leave",
