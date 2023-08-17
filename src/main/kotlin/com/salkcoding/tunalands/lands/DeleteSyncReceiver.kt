@@ -1,5 +1,6 @@
 package com.salkcoding.tunalands.lands
 
+import com.google.gson.JsonParser
 import fish.evatuna.metamorphosis.redis.MetamorphosisReceiveEvent
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -15,7 +16,8 @@ class DeleteSyncReceiver : Listener {
             "com.salkcoding.tunalands.sync_kick",
             "com.salkcoding.tunalands.sync_leave",
             "com.salkcoding.tunalands.sync_delete"-> {
-                val uuid = UUID.fromString(event.value)
+                val json = JsonParser.parseString(event.value).asJsonObject
+                val uuid = UUID.fromString(json["uuid"].asString)
                 LandMemberSyncDataService.removeData(uuid)
             }
 
