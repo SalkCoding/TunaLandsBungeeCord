@@ -22,9 +22,15 @@ object LandMemberSyncDataService : Listener {
         }
     }
 
-    fun getPlayerRank(uuid: UUID): Rank? = landByPlayerUUIDMap[uuid]?.firstOrNull { it.uuid == uuid }?.rank
+    fun getPlayerRank(uuid: UUID): Rank? =
+        landByPlayerUUIDMap[uuid]
+            ?.filter { it.rank != Rank.VISITOR && it.rank != Rank.PARTTIMEJOB }
+            ?.firstOrNull { it.uuid == uuid }?.rank
 
-    fun getMemberNames(uuid: UUID): List<String>? = landByPlayerUUIDMap[uuid]?.map { it.name }
+    fun getMemberNames(uuid: UUID): List<String>? =
+        landByPlayerUUIDMap[uuid]
+            ?.filter { it.rank != Rank.VISITOR && it.rank != Rank.PARTTIMEJOB }
+            ?.map { it.name }
 
     fun removeData(uuid: UUID) = landByPlayerUUIDMap.remove(uuid)
 
