@@ -21,14 +21,6 @@ object LandsAPI {
      * @return the LandType of chunk
      */
     fun getChunkLandType(worldName: String, chunkQuery: String): LandType? {
-        val syncer = tunaLands.nonMainServerSyncReceiver ?: return null
-
-        val chunkInfo: Pair<String, LandType>? = syncer.chunkQueryToLandTypeMap[chunkQuery]
-
-        return if (chunkInfo?.first == worldName) {
-            return chunkInfo.second
-        } else {
-            null
-        }
+        return null
     }
 }

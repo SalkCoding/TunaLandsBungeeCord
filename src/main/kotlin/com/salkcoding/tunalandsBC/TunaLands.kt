@@ -1,9 +1,11 @@
 package com.salkcoding.tunalandsBC
 
+import com.salkcoding.tunalands.lands.DeleteSyncReceiver
 import com.salkcoding.tunalands.lands.LandMemberSyncDataService
-import com.salkcoding.tunalands.lands.NonMainServerSyncReceiver
+//import com.salkcoding.tunalands.lands.NonMainServerSyncReceiver
 import com.salkcoding.tunalandsBC.bungee.*
 import com.salkcoding.tunalandsBC.commands.LandCommandHandler
+import com.salkcoding.tunalandsBC.commands.debug.Debug
 import com.salkcoding.tunalandsBC.commands.sub.*
 import com.salkcoding.tunalandsBC.gui.GuiManager
 import com.salkcoding.tunalandsBC.listener.*
@@ -20,7 +22,7 @@ lateinit var bukkitLinkedAPI: BukkitLinkedAPI
 lateinit var currentServerName: String
 
 class TunaLands : JavaPlugin() {
-    var nonMainServerSyncReceiver: NonMainServerSyncReceiver? = null
+//    var nonMainServerSyncReceiver: NonMainServerSyncReceiver? = null
 
     override fun onEnable() {
         tunaLands = this
@@ -47,6 +49,8 @@ class TunaLands : JavaPlugin() {
         bukkitLinkedAPI = tempBukkitLinked.api
 
         val handler = LandCommandHandler()
+        handler.register("debug", Debug())
+
         handler.register("accept", Accept())
         handler.register("alba", Alba())
         handler.register("ban", Ban())
@@ -86,10 +90,11 @@ class TunaLands : JavaPlugin() {
         // used for getting members list
 
         server.pluginManager.registerEvents(LandMemberSyncDataService, this)
+        server.pluginManager.registerEvents(DeleteSyncReceiver(), this)
 
-        nonMainServerSyncReceiver = NonMainServerSyncReceiver()
-        nonMainServerSyncReceiver!!.requestToReceiveAllData()
-        server.pluginManager.registerEvents(nonMainServerSyncReceiver!!, this)
+//        nonMainServerSyncReceiver = NonMainServerSyncReceiver()
+//        nonMainServerSyncReceiver!!.requestToReceiveAllData()
+//        server.pluginManager.registerEvents(nonMainServerSyncReceiver!!, this)
 
         logger.info("Plugin is Enabled")
     }
