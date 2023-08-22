@@ -23,21 +23,39 @@ class VisitCooldownReceiver : Listener {
                 if (currentServerName != json["targetServerName"].asString) return
 
                 val uuid = UUID.fromString(json["uuid"].asString)
-                val player = Bukkit.getPlayer(uuid)
-                if (player != null) {
-                    val ownerUUID = json["ownerUUID"].asString
+                val player = Bukkit.getPlayer(uuid) ?: return
+                val ownerUUID = json["ownerUUID"].asString
 
-                    val visitCooldown = json["visitCooldown"].asLong
+                val visitCooldown = json["visitCooldown"].asLong
 
-                    TeleportCooltime.addPlayer(player, null, visitCooldown, {
-                        val sendJson = JsonObject().apply {
-                            addProperty("uuid", uuid.toString())
-                            addProperty("name", player.name)
-                            addProperty("ownerUUID", ownerUUID)
-                        }
-                        metamorphosis.send("com.salkcoding.tunalands.pending_visit_teleport", sendJson.toString())
-                    }, true)
-                }
+                TeleportCooltime.addPlayer(player, null, visitCooldown, {
+                    val sendJson = JsonObject().apply {
+                        addProperty("uuid", uuid.toString())
+                        addProperty("name", player.name)
+                        addProperty("ownerUUID", ownerUUID)
+                    }
+                    metamorphosis.send("com.salkcoding.tunalands.pending_visit_teleport", sendJson.toString())
+                }, false)
+            }
+
+            "response_visit_specific" -> {
+                val json = JsonParser.parseString(event.value).asJsonObject
+                if (currentServerName != json["targetServerName"].asString) return
+
+                val uuid = UUID.fromString(json["uuid"].asString)
+                val player = Bukkit.getPlayer(uuid) ?: return
+                val ownerUUID = json["ownerUUID"].asString
+
+                val visitCooldown = json["visitCooldown"].asLong
+
+                TeleportCooltime.addPlayer(player, null, visitCooldown, {
+                    val sendJson = JsonObject().apply {
+                        addProperty("uuid", uuid.toString())
+                        addProperty("name", player.name)
+                        addProperty("ownerUUID", ownerUUID)
+                    }
+                    metamorphosis.send("com.salkcoding.tunalands.pending_visit_teleport", sendJson.toString())
+                }, false)
             }
         }
     }
